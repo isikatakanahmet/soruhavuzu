@@ -215,10 +215,14 @@
         <span class="logo-tag">AI Powered</span>
         <h1 class="logo-title">Soru <span>Havuzu</span></h1>
       </div>
-      <div class="stats-bar">
-        <div class="stat"><div class="stat-num" id="totalQuestions">0</div><div class="stat-label">Toplam Soru</div></div>
-        <div class="stat"><div class="stat-num" id="totalTopics">0</div><div class="stat-label">Konu</div></div>
-        <div class="stat"><div class="stat-num" id="totalPDFs">0</div><div class="stat-label">PDF</div></div>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <div id="apiKeyBadge" style="display:none;font-size:10px;letter-spacing:1px;color:var(--success);background:rgba(90,232,160,.08);border:1px solid rgba(90,232,160,.2);padding:4px 12px;border-radius:20px;">✓ API Key Aktif</div>
+        <button onclick="showApiKeyModal()" style="padding:8px 16px;background:transparent;border:1px solid var(--border);border-radius:2px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">⚙ API Key</button>
+        <div class="stats-bar">
+          <div class="stat"><div class="stat-num" id="totalQuestions">0</div><div class="stat-label">Toplam Soru</div></div>
+          <div class="stat"><div class="stat-num" id="totalTopics">0</div><div class="stat-label">Konu</div></div>
+          <div class="stat"><div class="stat-num" id="totalPDFs">0</div><div class="stat-label">PDF</div></div>
+        </div>
       </div>
     </div>
   </header>
@@ -310,14 +314,77 @@ var selectedCount = 3;
 var selectedFile  = null;
 var currentFilter = 'all';
 
+function getApiKey(){return localStorage.getItem('anthropicApiKey')||'';}
+
 function save(){
   localStorage.setItem('soruHavuzu',JSON.stringify(questions));
   localStorage.setItem('soruKonular',JSON.stringify(topics));
   try{localStorage.setItem('soruTopicPDFs',JSON.stringify(topicPDFs));}catch(e){}
 }
 
+function updateApiKeyBadge(){
+  var badge=document.getElementById('apiKeyBadge');
+  if(getApiKey()){badge.style.display='inline-block';}
+  else{badge.style.display='none';}
+}
+
+function showApiKeyModal(){
+  var cur=getApiKey();
+  var ov=document.createElement('div');
+  ov.className='modal-overlay';
+  ov.innerHTML='<div class="modal-box" style="max-width:480px">'
+    +'<div class="modal-head"><span class="modal-head-title">⚙ Anthropic API Key</span><button class="modal-close" id="akClose">✕</button></div>'
+    +'<div class="modal-body">'
+    +'<div style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:4px">'
+    +'API key\'ini <strong style="color:var(--accent)">console.anthropic.com</strong> adresinden ücretsiz alabilirsin.<br>'
+    +'Key sadece bu tarayıcıda saklanır, hiçbir yere gönderilmez.'
+    +'</div>'
+    +'<div><div class="modal-label">API Key</div>'
+    +'<input class="modal-input" id="akInput" type="password" placeholder="sk-ant-..." value="'+esc(cur)+'">'
+    +'</div>'
+    +'<div style="display:flex;gap:8px;flex-wrap:wrap">'
+    +'<button class="btn-save" id="akSave" style="flex:1">✦ Kaydet</button>'
+    +(cur?'<button class="btn-cancel" id="akClear" style="color:var(--danger);border-color:rgba(232,90,90,.3)">✕ Sil</button>':'')
+    +'</div>'
+    +'</div></div>';
+  document.body.appendChild(ov);
+  ov.querySelector('#akClose').onclick=function(){document.body.removeChild(ov);};
+  ov.addEventListener('click',function(e){if(e.target===ov)document.body.removeChild(ov);});
+  ov.querySelector('#akSave').onclick=function(){
+    var val=ov.querySelector('#akInput').value.trim();
+    if(!val){showToast('API key boş olamaz','error');return;}
+    if(!val.startsWith('sk-ant-')){showToast('Geçersiz format — sk-ant- ile başlamalı','error');return;}
+    localStorage.setItem('anthropicApiKey',val);
+    updateApiKeyBadge();
+    document.body.removeChild(ov);
+    showToast('API key kaydedildi ✓','success');
+  };
+  var clrBtn=ov.querySelector('#akClear');
+  if(clrBtn) clrBtn.onclick=function(){
+    localStorage.removeItem('anthropicApiKey');
+    updateApiKeyBadge();
+    document.body.removeChild(ov);
+    showToast('API key silindi','info');
+  };
+  setTimeout(function(){ov.querySelector('#akInput').focus();},100);
+}
+
+function apiHeaders(){
+  return{
+    'Content-Type':'application/json',
+    'anthropic-dangerous-direct-browser-access':'true',
+    'x-api-key': getApiKey()
+  };
+}
+
 // ─── INIT ────────────────────────────────────────────────────────────────────
 renderAll();
+updateApiKeyBadge();
+
+// Show API key modal on first visit
+if(!getApiKey()){
+  setTimeout(showApiKeyModal, 600);
+}
 
 document.querySelectorAll('.count-btn').forEach(function(btn){
   btn.addEventListener('click',function(){
@@ -396,6 +463,7 @@ async function generateQuestions(){
   var topic=document.getElementById('topicInput').value.trim();
   if(!topic){showToast('Lütfen konu adı girin','error');return;}
   if(!selectedFile){showToast('Lütfen bir PDF dosyası seçin','error');return;}
+  if(!getApiKey()){showApiKeyModal();showToast('Önce API key girin','error');return;}
   var btn=document.getElementById('generateBtn');
   btn.disabled=true;
   btn.innerHTML='<span class="spinner"></span> Üretiliyor...';
@@ -419,7 +487,7 @@ async function runGenerate(topic,base64){
 
   var resp=await fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
-    headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
+    headers:apiHeaders(),
     body:JSON.stringify({
       model:'claude-sonnet-4-20250514',max_tokens:2500,
       messages:[{role:'user',content:[
@@ -430,7 +498,12 @@ async function runGenerate(topic,base64){
   });
 
   var data=await resp.json();
-  var raw=data.content.map(function(c){return c.text||'';}).join('');
+  if(!resp.ok||data.error){
+    var msg=data.error?data.error.message:('HTTP '+resp.status);
+    if(resp.status===401) msg='Geçersiz API key — ⚙ API Key butonundan kontrol et';
+    throw new Error(msg);
+  }
+  var raw=(data.content||[]).map(function(c){return c.text||'';}).join('');
   var parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
   var newQs=parsed.sorular||[];
   if(!newQs.length) throw new Error('Soru üretilemedi');
@@ -725,7 +798,7 @@ async function toggleSource(id){
       +'{"bolum":"Bolum adi","ozet":"Ilgili icerik ozeti","konum":"PDF konumu","dogru_cevap_aciklama":"Neden dogru"}';
 
     var resp=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
+      method:'POST',headers:apiHeaders(),
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',max_tokens:800,
         messages:[{role:'user',content:[
@@ -735,7 +808,12 @@ async function toggleSource(id){
       })
     });
     var data=await resp.json();
-    var raw=data.content.map(function(c){return c.text||'';}).join('');
+    if(!resp.ok||data.error){
+      var emsg=data.error?data.error.message:('HTTP '+resp.status);
+      if(resp.status===401) emsg='Geçersiz API key';
+      throw new Error(emsg);
+    }
+    var raw=(data.content||[]).map(function(c){return c.text||'';}).join('');
     var info=JSON.parse(raw.replace(/```json|```/g,'').trim());
 
     // Store in question object
