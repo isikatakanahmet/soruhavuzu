@@ -17,8 +17,6 @@
     background-image:linear-gradient(rgba(232,180,90,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(232,180,90,.03) 1px,transparent 1px);
     background-size:40px 40px;}
   .container{max-width:1100px;margin:0 auto;padding:0 32px;position:relative;z-index:1;}
-
-  /* Header */
   header{padding:48px 0 32px;border-bottom:1px solid var(--border);margin-bottom:48px;}
   .header-inner{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;}
   .logo{display:flex;flex-direction:column;gap:4px;}
@@ -29,25 +27,30 @@
   .stat{text-align:right;}
   .stat-num{font-family:'DM Serif Display',serif;font-size:28px;color:var(--accent);line-height:1;}
   .stat-label{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:4px;}
-
-  /* Layout */
+  /* Kredi widget */
+  .credit-bar{display:flex;align-items:center;gap:12px;padding:10px 18px;background:var(--surface);border:1px solid var(--border);border-radius:2px;cursor:pointer;transition:border-color .2s;min-width:160px;}
+  .credit-bar:hover{border-color:var(--accent);}
+  .credit-inner{flex:1;}
+  .credit-amount{font-family:'DM Serif Display',serif;font-size:24px;line-height:1;}
+  .credit-amount.high{color:var(--success);}
+  .credit-amount.mid{color:var(--accent);}
+  .credit-amount.low{color:var(--danger);}
+  .credit-meta{display:flex;align-items:center;justify-content:space-between;margin-top:3px;}
+  .credit-sub{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+  .credit-hint{font-size:9px;color:var(--muted);}
+  .credit-progress{height:2px;background:var(--border);border-radius:1px;margin-top:5px;overflow:hidden;}
+  .credit-progress-fill{height:100%;border-radius:1px;transition:width .5s ease,background .5s;}
   .main-grid{display:grid;grid-template-columns:380px 1fr;gap:32px;align-items:start;}
-
-  /* Panel */
   .panel{background:var(--surface);border:1px solid var(--border);border-radius:2px;overflow:hidden;}
   .panel-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
   .panel-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);}
   .panel-title{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
   .panel-body{padding:24px;}
-
-  /* Form */
   .form-group{margin-bottom:20px;}
   .form-label{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
   .form-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:2px;padding:12px 14px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;outline:none;transition:border-color .2s;}
   .form-input:focus{border-color:var(--accent);}
   .form-input::placeholder{color:var(--muted);}
-
-  /* Drop zone */
   .drop-zone{border:1px dashed var(--border);border-radius:2px;padding:32px 20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--surface2);}
   .drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:rgba(232,180,90,.04);}
   .drop-icon{font-size:28px;margin-bottom:10px;display:block;}
@@ -56,21 +59,15 @@
   .file-selected{margin-top:12px;padding:10px 14px;background:rgba(232,180,90,.08);border:1px solid rgba(232,180,90,.2);border-radius:2px;font-size:12px;color:var(--accent);display:flex;align-items:center;gap:8px;}
   .file-change{margin-left:auto;font-size:10px;color:var(--muted);cursor:pointer;letter-spacing:1px;text-transform:uppercase;}
   .file-change:hover{color:var(--accent);}
-
-  /* Count buttons */
   .count-row{display:flex;gap:8px;margin-bottom:20px;}
   .count-btn{flex:1;padding:10px;background:var(--surface2);border:1px solid var(--border);border-radius:2px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:12px;cursor:pointer;transition:all .2s;text-align:center;}
   .count-btn:hover{border-color:var(--accent);color:var(--accent);}
   .count-btn.active{background:rgba(232,180,90,.1);border-color:var(--accent);color:var(--accent);}
-
-  /* Generate button */
   .btn-generate{width:100%;padding:14px;background:var(--accent);border:none;border-radius:2px;color:#0d0f14;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;}
   .btn-generate:hover:not(:disabled){background:#f0c46a;transform:translateY(-1px);}
   .btn-generate:disabled{opacity:.4;cursor:not-allowed;}
   .spinner{display:inline-block;width:12px;height:12px;border:2px solid rgba(13,15,20,.3);border-top-color:#0d0f14;border-radius:50%;animation:spin .6s linear infinite;margin-right:8px;vertical-align:middle;}
   @keyframes spin{to{transform:rotate(360deg);}}
-
-  /* Topics */
   .topic-chip{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:2px;margin-bottom:6px;cursor:pointer;transition:all .2s;}
   .topic-chip:hover{border-color:var(--accent2);}
   .topic-chip.active{border-color:var(--accent2);background:rgba(90,143,232,.06);}
@@ -78,8 +75,6 @@
   .topic-count{font-size:10px;color:var(--muted);background:var(--border);padding:2px 8px;border-radius:20px;}
   .topic-regen-btn{font-size:9px;letter-spacing:1px;color:var(--accent2);background:rgba(90,143,232,.1);border:1px solid rgba(90,143,232,.25);border-radius:20px;padding:3px 10px;cursor:pointer;font-family:'JetBrains Mono',monospace;transition:all .15s;white-space:nowrap;}
   .topic-regen-btn:hover{background:rgba(90,143,232,.22);border-color:var(--accent2);}
-
-  /* Pool */
   .pool-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;}
   .pool-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--text);}
   .pool-actions{display:flex;gap:8px;}
@@ -87,14 +82,10 @@
   .btn-sm:hover{border-color:var(--accent);color:var(--accent);}
   .btn-danger{border-color:rgba(232,90,90,.3);color:var(--danger);}
   .btn-danger:hover{border-color:var(--danger);background:rgba(232,90,90,.06);color:var(--danger);}
-
-  /* Filter tabs */
   .filter-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
   .filter-tab{padding:6px 14px;background:transparent;border:1px solid var(--border);border-radius:20px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;cursor:pointer;transition:all .2s;}
   .filter-tab:hover{border-color:var(--accent2);color:var(--accent2);}
   .filter-tab.active{background:rgba(90,143,232,.1);border-color:var(--accent2);color:var(--accent2);}
-
-  /* Question card */
   .question-card{background:var(--surface);border:1px solid var(--border);border-radius:2px;padding:20px 24px;margin-bottom:10px;transition:border-color .2s;animation:fadeIn .3s ease;}
   .question-card:hover{border-color:rgba(232,180,90,.2);}
   @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -108,8 +99,6 @@
   .q-btn:hover{color:var(--accent);}
   .q-btn.delete:hover{color:var(--danger);}
   .q-btn.src:hover,.q-btn.src.active{color:var(--accent2);}
-
-  /* Options */
   .q-options{margin-top:14px;display:flex;flex-direction:column;gap:6px;}
   .q-option{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:2px;cursor:pointer;transition:all .15s;}
   .q-option:hover:not(.correct):not(.wrong):not(.dimmed){border-color:var(--accent2);background:rgba(90,143,232,.06);}
@@ -121,8 +110,6 @@
   .q-option.wrong .q-opt-label,.q-option.wrong .q-opt-text{color:var(--danger);text-decoration:line-through;opacity:.7;}
   .q-option.dimmed{opacity:.35;}
   .answered .q-option{cursor:default;}
-
-  /* Source box */
   .q-source-box{margin-top:12px;border-radius:2px;overflow:hidden;animation:fadeIn .2s ease;}
   .source-loading{padding:12px 14px;font-size:11px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:2px;}
   .source-error{padding:12px 14px;font-size:11px;color:var(--danger);background:rgba(232,90,90,.06);border:1px solid rgba(232,90,90,.2);border-radius:2px;}
@@ -133,11 +120,8 @@
   .source-val{font-size:12px;color:var(--text);line-height:1.6;font-family:'Fraunces',serif;font-weight:300;}
   .source-explain{background:rgba(90,232,160,.04);}
   .source-explain .source-label{color:var(--success);}
-
-  /* Source inline edit */
   .src-edit-row{background:rgba(0,0,0,.15);border-top:1px solid rgba(232,180,90,.1)!important;}
-  .src-edit-btn{font-size:9px;letter-spacing:1px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;padding:4px 12px;border-radius:2px;cursor:pointer;transition:all .15s;}
-  .src-edit-btn{background:rgba(232,180,90,.08);border:1px solid rgba(232,180,90,.2);color:var(--accent);}
+  .src-edit-btn{font-size:9px;letter-spacing:1px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;padding:4px 12px;border-radius:2px;cursor:pointer;transition:all .15s;background:rgba(232,180,90,.08);border:1px solid rgba(232,180,90,.2);color:var(--accent);}
   .src-edit-btn:hover{background:rgba(232,180,90,.18);}
   .src-edit-save{background:rgba(90,232,160,.08)!important;border-color:rgba(90,232,160,.25)!important;color:var(--success)!important;}
   .src-edit-save:hover{background:rgba(90,232,160,.18)!important;}
@@ -149,10 +133,7 @@
   .src-pdf-btn:hover{background:rgba(232,180,90,.2);}
   .src-pdf-dl{background:transparent!important;border-color:var(--border)!important;color:var(--muted)!important;}
   .src-pdf-dl:hover{border-color:var(--accent)!important;color:var(--accent)!important;background:transparent!important;}
-
   .q-btn.edit:hover{color:var(--accent);}
-
-  /* Edit modal */
   .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:3000;display:flex;align-items:center;justify-content:center;padding:20px;}
   .modal-box{background:var(--surface);border:1px solid var(--border);border-radius:2px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;display:flex;flex-direction:column;}
   .modal-head{padding:18px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--surface);z-index:1;}
@@ -175,39 +156,19 @@
   .btn-save:hover{background:#f0c46a;}
   .btn-cancel{padding:10px 20px;background:transparent;border:1px solid var(--border);border-radius:2px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;cursor:pointer;transition:all .2s;}
   .btn-cancel:hover{border-color:var(--accent);color:var(--accent);}
-
-  /* PDF viewer modal */
-  .pdf-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:4000;display:flex;flex-direction:column;}
-  .pdf-modal-head{padding:12px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface);flex-shrink:0;}
-  .pdf-modal-title{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
-  .pdf-modal-close{background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;}
-  .pdf-modal-close:hover{color:var(--text);}
-  .pdf-modal-body{flex:1;overflow:hidden;}
-  .pdf-modal-body iframe{width:100%;height:100%;border:none;display:block;}
   .empty-state{text-align:center;padding:80px 20px;color:var(--muted);}
   .empty-icon{font-size:48px;margin-bottom:16px;opacity:.4;}
   .empty-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--muted);margin-bottom:8px;}
   .empty-sub{font-size:12px;line-height:1.6;max-width:300px;margin:0 auto;}
-
-  /* Toast */
-  .toast{position:fixed;bottom:32px;right:32px;background:var(--surface);border:1px solid var(--border);border-radius:2px;padding:14px 20px;font-size:12px;z-index:1000;animation:toastIn .3s ease;max-width:320px;}
+  .toast{position:fixed;bottom:32px;right:32px;background:var(--surface);border:1px solid var(--border);border-radius:2px;padding:14px 20px;font-size:12px;z-index:5000;animation:toastIn .3s ease;max-width:320px;}
   .toast.success{border-color:rgba(90,232,160,.3);color:var(--success);}
   .toast.error{border-color:rgba(232,90,90,.3);color:var(--danger);}
   .toast.info{border-color:rgba(232,180,90,.3);color:var(--accent);}
   @keyframes toastIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-
-  /* Kredi uyarı rozeti */
-  .credit-warn{display:inline-flex;align-items:center;gap:5px;font-size:9px;letter-spacing:1px;color:#BA7517;background:rgba(250,199,117,.12);border:1px solid rgba(250,199,117,.25);padding:2px 8px;border-radius:20px;margin-left:6px;}
-
   ::-webkit-scrollbar{width:4px;}
   ::-webkit-scrollbar-track{background:transparent;}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
-
-  @media(max-width:800px){
-    .main-grid{grid-template-columns:1fr;}
-    .header-inner{flex-direction:column;align-items:flex-start;}
-    .stats-bar{gap:20px;}
-  }
+  @media(max-width:800px){.main-grid{grid-template-columns:1fr;}.header-inner{flex-direction:column;align-items:flex-start;}.stats-bar{gap:20px;}}
 </style>
 </head>
 <body>
@@ -220,11 +181,23 @@
       </div>
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
         <div id="apiKeyBadge" style="display:none;font-size:10px;letter-spacing:1px;color:var(--success);background:rgba(90,232,160,.08);border:1px solid rgba(90,232,160,.2);padding:4px 12px;border-radius:20px;">✓ API Key Aktif</div>
-        <!-- KREDİ GÖSTERGESI -->
-        <div id="creditBadge" style="font-size:10px;letter-spacing:1px;color:#BA7517;background:rgba(250,199,117,.1);border:1px solid rgba(250,199,117,.25);padding:4px 12px;border-radius:20px;display:none;">
-          ⚡ <span id="creditLeft">$5.00</span> kaldı
-        </div>
         <button onclick="showApiKeyModal()" style="padding:8px 16px;background:transparent;border:1px solid var(--border);border-radius:2px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">⚙ API Key</button>
+
+        <!-- KREDİ GÖSTERGESİ — tıkla, güncelle -->
+        <div class="credit-bar" onclick="showCreditModal()" title="Tıkla → krediyi güncelle">
+          <span style="font-size:20px">💳</span>
+          <div class="credit-inner">
+            <div class="credit-amount" id="creditDisplay">$—</div>
+            <div class="credit-meta">
+              <span class="credit-sub">Kalan Kredi</span>
+              <span class="credit-hint">✎ güncelle</span>
+            </div>
+            <div class="credit-progress">
+              <div class="credit-progress-fill" id="creditFill" style="width:0%;background:var(--success)"></div>
+            </div>
+          </div>
+        </div>
+
         <div class="stats-bar">
           <div class="stat"><div class="stat-num" id="totalQuestions">0</div><div class="stat-label">Toplam Soru</div></div>
           <div class="stat"><div class="stat-num" id="totalTopics">0</div><div class="stat-label">Konu</div></div>
@@ -232,17 +205,17 @@
         </div>
       </div>
     </div>
+    <!-- Son işlem -->
+    <div id="lastCostBar" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:10px;color:var(--muted);letter-spacing:1px;display:flex;gap:24px;flex-wrap:wrap">
+      <span>Son işlem: <strong id="lastCostVal" style="color:var(--danger)">—</strong></span>
+      <span>Toplam harcanan: <strong id="totalSpentVal" style="color:var(--accent)">—</strong></span>
+    </div>
   </header>
 
   <div class="main-grid">
     <div>
       <div class="panel">
-        <div class="panel-header">
-          <div class="panel-dot"></div>
-          <span class="panel-title">PDF Yükle &amp; Soru Üret</span>
-          <!-- MODEL ROZETI -->
-          <span style="margin-left:auto;font-size:9px;letter-spacing:1px;color:var(--success);background:rgba(90,232,160,.08);border:1px solid rgba(90,232,160,.2);padding:2px 8px;border-radius:20px;">⚡ Haiku · Ekonomik</span>
-        </div>
+        <div class="panel-header"><div class="panel-dot"></div><span class="panel-title">PDF Yükle &amp; Soru Üret</span></div>
         <div class="panel-body">
           <div class="form-group">
             <label class="form-label">PDF Dosyası</label>
@@ -252,12 +225,10 @@
               <div class="drop-text"><strong>Dosya seç</strong> veya sürükle bırak<br>Sadece PDF dosyaları</div>
             </div>
             <div class="file-selected" id="fileSelected" style="display:none">
-              <span>📎</span>
-              <span id="fileName"></span>
+              <span>📎</span><span id="fileName"></span>
               <span class="file-change" id="fileChange">↺ Değiştir</span>
             </div>
           </div>
-
           <div class="form-group">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
               <label class="form-label" style="margin-bottom:0">Konu Adı</label>
@@ -265,7 +236,6 @@
             </div>
             <input type="text" class="form-input" id="topicInput" placeholder="Önce PDF yükle, otomatik dolar...">
           </div>
-
           <div class="form-group">
             <label class="form-label">Kaç Soru Üretilsin?</label>
             <div class="count-row">
@@ -275,28 +245,17 @@
               <button class="count-btn" data-count="15">15</button>
             </div>
           </div>
-
-          <button class="btn-generate" id="generateBtn" onclick="generateQuestions()">✦ Soru Üret</button>
-
-          <!-- TAHMİNİ MALİYET GÖSTERGESI -->
-          <div style="margin-top:12px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:2px;font-size:11px;color:var(--muted);">
-            <span style="color:var(--accent);">⚡ Model:</span> Claude Haiku 4.5 &nbsp;·&nbsp;
-            <span style="color:var(--accent);">Tahmini:</span> ~$0.01–0.03 / üretim
+          <div style="margin-bottom:16px;padding:10px 14px;background:rgba(232,180,90,.05);border:1px solid rgba(232,180,90,.15);border-radius:2px;font-size:11px;color:var(--muted);line-height:1.6;">
+            ⚡ Model: <strong style="color:var(--accent)">Claude Haiku 4.5</strong> — Düşük maliyet, yüksek kalite
           </div>
+          <button class="btn-generate" id="generateBtn" onclick="generateQuestions()">✦ Soru Üret</button>
         </div>
       </div>
-
       <div class="panel" style="margin-top:16px">
-        <div class="panel-header">
-          <div class="panel-dot" style="background:var(--accent2)"></div>
-          <span class="panel-title">Konular</span>
-        </div>
-        <div class="panel-body" id="topicsList">
-          <div style="font-size:12px;color:var(--muted);text-align:center;padding:12px 0">Henüz konu eklenmedi</div>
-        </div>
+        <div class="panel-header"><div class="panel-dot" style="background:var(--accent2)"></div><span class="panel-title">Konular</span></div>
+        <div class="panel-body" id="topicsList"><div style="font-size:12px;color:var(--muted);text-align:center;padding:12px 0">Henüz konu eklenmedi</div></div>
       </div>
     </div>
-
     <div>
       <div class="pool-header">
         <h2 class="pool-title">Soru Havuzu</h2>
@@ -305,105 +264,150 @@
           <button class="btn-sm btn-danger" onclick="clearAll()">✕ Temizle</button>
         </div>
       </div>
-      <div class="filter-row" id="filterRow">
-        <button class="filter-tab active" onclick="filterQuestions('all',this)">Tümü</button>
-      </div>
+      <div class="filter-row" id="filterRow"><button class="filter-tab active" onclick="filterQuestions('all',this)">Tümü</button></div>
       <div id="questionPool">
-        <div class="empty-state">
-          <div class="empty-icon">🎯</div>
-          <div class="empty-title">Soru Havuzu Boş</div>
-          <div class="empty-sub">Sol taraftan bir PDF yükleyip soru üretmeye başlayın.</div>
-        </div>
+        <div class="empty-state"><div class="empty-icon">🎯</div><div class="empty-title">Soru Havuzu Boş</div><div class="empty-sub">Sol taraftan bir PDF yükleyip soru üretmeye başlayın.</div></div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-// ─── STATE ───────────────────────────────────────────────────────────────────
-function safeLoad(k,fb){try{return JSON.parse(localStorage.getItem(k))||fb;}catch(e){return fb;}}
-var questions  = safeLoad('soruHavuzu',[]);
-var topics     = safeLoad('soruKonular',{});
-var topicPDFs  = safeLoad('soruTopicPDFs',{});
-var creditUsed = parseFloat(localStorage.getItem('soruCreditUsed')||'0');
-var BUDGET     = 5.00;
+// ─── MODEL & FİYAT ──────────────────────────────────────────────────────────
+var MODEL      = 'claude-haiku-4-5-20251001';
+var PRICE_IN   = 1 / 1e6;   // $1 per 1M input tokens
+var PRICE_OUT  = 5 / 1e6;   // $5 per 1M output tokens
+
+// ─── STATE ──────────────────────────────────────────────────────────────────
+function safeLoad(k,fb){try{var v=JSON.parse(localStorage.getItem(k));return v!==null?v:fb;}catch(e){return fb;}}
+var questions    = safeLoad('soruHavuzu',[]);
+var topics       = safeLoad('soruKonular',{});
+var topicPDFs    = safeLoad('soruTopicPDFs',{});
+var creditData   = safeLoad('soruCredit',{balance:null, initial:null, spent:0, lastCost:0});
 var selectedCount = 3;
 var selectedFile  = null;
 var currentFilter = 'all';
-
-// ─── MODEL ───────────────────────────────────────────────────────────────────
-// ✅ OPTİMİZASYON: Sonnet yerine Haiku kullanılıyor — 3x tasarruf
-var MODEL = 'claude-haiku-4-5-20251001';
-var MODEL_INPUT_PRICE  = 1;   // $ per 1M token
-var MODEL_OUTPUT_PRICE = 5;   // $ per 1M token
 
 function getApiKey(){return localStorage.getItem('anthropicApiKey')||'';}
 
 function save(){
   localStorage.setItem('soruHavuzu',JSON.stringify(questions));
   localStorage.setItem('soruKonular',JSON.stringify(topics));
-  localStorage.setItem('soruCreditUsed',creditUsed.toString());
+  localStorage.setItem('soruCredit',JSON.stringify(creditData));
   try{localStorage.setItem('soruTopicPDFs',JSON.stringify(topicPDFs));}catch(e){}
 }
 
-// ─── KREDİ TAKİBİ ────────────────────────────────────────────────────────────
-function estimateCost(inputTokens, outputTokens){
-  return (inputTokens / 1e6 * MODEL_INPUT_PRICE) + (outputTokens / 1e6 * MODEL_OUTPUT_PRICE);
+// ─── KREDİ ──────────────────────────────────────────────────────────────────
+function estimateCost(inputTok, outputTok){
+  return inputTok * PRICE_IN + outputTok * PRICE_OUT;
 }
 
-function trackCost(inputTokens, outputTokens){
-  var cost = estimateCost(inputTokens, outputTokens);
-  creditUsed += cost;
+function deductCredit(cost){
+  if(creditData.balance !== null){
+    creditData.balance = Math.max(0, creditData.balance - cost);
+  }
+  creditData.spent   = (creditData.spent || 0) + cost;
+  creditData.lastCost = cost;
   save();
-  updateCreditBadge();
-  return cost;
+  renderCredit();
 }
 
-function updateCreditBadge(){
-  var badge = document.getElementById('creditBadge');
-  var left  = document.getElementById('creditLeft');
-  if(!badge||!left) return;
-  var remaining = Math.max(0, BUDGET - creditUsed);
-  left.textContent = '$' + remaining.toFixed(3);
-  badge.style.display = 'inline-flex';
-  if(remaining < 0.5){
-    badge.style.color='var(--danger)';
-    badge.style.borderColor='rgba(232,90,90,.3)';
-    badge.style.background='rgba(232,90,90,.07)';
-  } else if(remaining < 1.5){
-    badge.style.color='#BA7517';
+function renderCredit(){
+  var bal  = creditData.balance;
+  var init = creditData.initial;
+  var spent = creditData.spent || 0;
+  var last  = creditData.lastCost || 0;
+
+  var dispEl = document.getElementById('creditDisplay');
+  var fillEl = document.getElementById('creditFill');
+
+  if(bal === null){
+    dispEl.textContent = '$—';
+    dispEl.className = 'credit-amount mid';
+    fillEl.style.width = '0%';
   } else {
-    badge.style.color='var(--success)';
-    badge.style.borderColor='rgba(90,232,160,.25)';
-    badge.style.background='rgba(90,232,160,.07)';
+    dispEl.textContent = '$' + bal.toFixed(4);
+    var pct = (init && init > 0) ? bal / init : 1;
+    dispEl.className = 'credit-amount ' + (pct > 0.5 ? 'high' : pct > 0.2 ? 'mid' : 'low');
+    fillEl.style.width = Math.round(pct * 100) + '%';
+    fillEl.style.background = pct > 0.5 ? 'var(--success)' : pct > 0.2 ? 'var(--accent)' : 'var(--danger)';
+  }
+
+  // Son işlem satırı
+  var bar = document.getElementById('lastCostBar');
+  if(last > 0){
+    bar.style.display = 'flex';
+    document.getElementById('lastCostVal').textContent  = '-$' + last.toFixed(5);
+    document.getElementById('totalSpentVal').textContent = '$'  + spent.toFixed(4);
   }
 }
 
+function showCreditModal(){
+  var ov = document.createElement('div');
+  ov.className = 'modal-overlay';
+  var curVal = creditData.balance !== null ? creditData.balance.toFixed(4) : '';
+  ov.innerHTML = '<div class="modal-box" style="max-width:440px">'
+    +'<div class="modal-head"><span class="modal-head-title">💳 Kredi Güncelle</span><button class="modal-close" id="ccClose">✕</button></div>'
+    +'<div class="modal-body">'
+    +'<div style="font-size:12px;color:var(--muted);line-height:1.7;padding:10px 14px;background:rgba(232,180,90,.05);border:1px solid rgba(232,180,90,.15);border-radius:2px;">'
+    +'<strong style="color:var(--accent)">console.anthropic.com → Billing</strong> sayfasında güncel kredinizi görürsünüz.<br>'
+    +'Girdiğiniz tutardan her API çağrısında otomatik düşer.'
+    +'</div>'
+    +'<div>'
+    +'<div class="modal-label">Güncel API Krediniz (USD)</div>'
+    +'<div style="display:flex;align-items:center;background:var(--surface2);border:1px solid var(--accent);border-radius:2px;overflow:hidden">'
+    +'<span style="padding:0 14px;font-size:20px;color:var(--accent);border-right:1px solid var(--border)">$</span>'
+    +'<input id="ccInput" type="number" min="0" step="0.0001" placeholder="5.0000" value="'+esc(curVal)+'" '
+    +'style="flex:1;background:transparent;border:none;padding:12px 14px;color:var(--text);font-family:JetBrains Mono,monospace;font-size:18px;outline:none;">'
+    +'</div>'
+    +'</div>'
+    +(creditData.spent > 0 ?
+      '<div style="display:flex;gap:8px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:2px;font-size:11px;color:var(--muted)">'
+      +'<span>📊 Şimdiye kadar harcanan: <strong style="color:var(--accent)">$'+(creditData.spent||0).toFixed(5)+'</strong></span>'
+      +'</div>' : '')
+    +'<div style="display:flex;gap:8px">'
+    +'<button class="btn-save" id="ccSave" style="flex:1">✦ Kaydet</button>'
+    +'<button class="btn-cancel" id="ccReset" style="color:var(--danger);border-color:rgba(232,90,90,.3)">Sıfırla</button>'
+    +'</div>'
+    +'</div></div>';
+  document.body.appendChild(ov);
+  ov.querySelector('#ccClose').onclick = function(){document.body.removeChild(ov);};
+  ov.addEventListener('click',function(e){if(e.target===ov)document.body.removeChild(ov);});
+  setTimeout(function(){ov.querySelector('#ccInput').focus();ov.querySelector('#ccInput').select();},80);
+
+  ov.querySelector('#ccSave').onclick = function(){
+    var val = parseFloat(ov.querySelector('#ccInput').value);
+    if(isNaN(val)||val<0){showToast('Geçerli bir tutar girin','error');return;}
+    creditData.balance = val;
+    if(creditData.initial === null || val > creditData.initial) creditData.initial = val;
+    save(); renderCredit();
+    document.body.removeChild(ov);
+    showToast('Kredi güncellendi → $'+val.toFixed(4),'success');
+  };
+  ov.querySelector('#ccReset').onclick = function(){
+    creditData = {balance:null,initial:null,spent:0,lastCost:0};
+    save(); renderCredit();
+    document.body.removeChild(ov);
+    showToast('Kredi sıfırlandı','info');
+  };
+}
+
+// ─── API KEY ────────────────────────────────────────────────────────────────
 function updateApiKeyBadge(){
-  var badge=document.getElementById('apiKeyBadge');
-  if(getApiKey()){badge.style.display='inline-block';}
-  else{badge.style.display='none';}
+  document.getElementById('apiKeyBadge').style.display = getApiKey() ? 'inline-block' : 'none';
 }
 
 function showApiKeyModal(){
   var cur=getApiKey();
-  var ov=document.createElement('div');
-  ov.className='modal-overlay';
+  var ov=document.createElement('div');ov.className='modal-overlay';
   ov.innerHTML='<div class="modal-box" style="max-width:480px">'
     +'<div class="modal-head"><span class="modal-head-title">⚙ Anthropic API Key</span><button class="modal-close" id="akClose">✕</button></div>'
     +'<div class="modal-body">'
-    +'<div style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:4px">'
-    +'API key\'ini <strong style="color:var(--accent)">console.anthropic.com</strong> adresinden ücretsiz alabilirsin.<br>'
-    +'Key sadece bu tarayıcıda saklanır, hiçbir yere gönderilmez.'
-    +'</div>'
-    +'<div><div class="modal-label">API Key</div>'
-    +'<input class="modal-input" id="akInput" type="password" placeholder="sk-ant-..." value="'+esc(cur)+'">'
-    +'</div>'
-    +'<div style="display:flex;gap:8px;flex-wrap:wrap">'
-    +'<button class="btn-save" id="akSave" style="flex:1">✦ Kaydet</button>'
+    +'<div style="font-size:12px;color:var(--muted);line-height:1.7">API key\'ini <strong style="color:var(--accent)">console.anthropic.com</strong> adresinden alabilirsin. Sadece bu tarayıcıda saklanır.</div>'
+    +'<div><div class="modal-label">API Key</div><input class="modal-input" id="akInput" type="password" placeholder="sk-ant-..." value="'+esc(cur)+'"></div>'
+    +'<div style="display:flex;gap:8px"><button class="btn-save" id="akSave" style="flex:1">✦ Kaydet</button>'
     +(cur?'<button class="btn-cancel" id="akClear" style="color:var(--danger);border-color:rgba(232,90,90,.3)">✕ Sil</button>':'')
-    +'</div>'
-    +'</div></div>';
+    +'</div></div></div>';
   document.body.appendChild(ov);
   ov.querySelector('#akClose').onclick=function(){document.body.removeChild(ov);};
   ov.addEventListener('click',function(e){if(e.target===ov)document.body.removeChild(ov);});
@@ -411,261 +415,148 @@ function showApiKeyModal(){
     var val=ov.querySelector('#akInput').value.trim();
     if(!val){showToast('API key boş olamaz','error');return;}
     if(!val.startsWith('sk-ant-')){showToast('Geçersiz format — sk-ant- ile başlamalı','error');return;}
-    localStorage.setItem('anthropicApiKey',val);
-    updateApiKeyBadge();
-    document.body.removeChild(ov);
-    showToast('API key kaydedildi ✓','success');
+    localStorage.setItem('anthropicApiKey',val);updateApiKeyBadge();document.body.removeChild(ov);showToast('API key kaydedildi ✓','success');
   };
-  var clrBtn=ov.querySelector('#akClear');
-  if(clrBtn) clrBtn.onclick=function(){
-    localStorage.removeItem('anthropicApiKey');
-    updateApiKeyBadge();
-    document.body.removeChild(ov);
-    showToast('API key silindi','info');
-  };
+  var clr=ov.querySelector('#akClear');
+  if(clr) clr.onclick=function(){localStorage.removeItem('anthropicApiKey');updateApiKeyBadge();document.body.removeChild(ov);showToast('API key silindi','info');};
   setTimeout(function(){ov.querySelector('#akInput').focus();},100);
 }
 
 function apiHeaders(){
-  return{
-    'Content-Type':'application/json',
-    'anthropic-dangerous-direct-browser-access':'true',
-    'anthropic-version':'2023-06-01',
-    'x-api-key': getApiKey()
-  };
+  return{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true','anthropic-version':'2023-06-01','x-api-key':getApiKey()};
 }
 
-// ─── INIT ────────────────────────────────────────────────────────────────────
-renderAll();
-updateApiKeyBadge();
-updateCreditBadge();
-
-if(!getApiKey()){
-  setTimeout(showApiKeyModal, 600);
-}
+// ─── INIT ───────────────────────────────────────────────────────────────────
+renderAll(); updateApiKeyBadge(); renderCredit();
+if(creditData.balance === null){ setTimeout(showCreditModal, 400); }
+else if(!getApiKey()){ setTimeout(showApiKeyModal, 600); }
 
 document.querySelectorAll('.count-btn').forEach(function(btn){
   btn.addEventListener('click',function(){
     document.querySelectorAll('.count-btn').forEach(function(b){b.classList.remove('active');});
-    btn.classList.add('active');
-    selectedCount=parseInt(btn.dataset.count);
+    btn.classList.add('active'); selectedCount=parseInt(btn.dataset.count);
   });
 });
-
-document.getElementById('dropZone').addEventListener('click',function(){
-  document.getElementById('fileInput').click();
-});
-document.getElementById('fileChange').addEventListener('click',function(){
-  document.getElementById('fileInput').click();
-});
-document.getElementById('fileInput').addEventListener('change',function(e){
-  if(e.target.files[0]) handleFile(e.target.files[0]);
-  e.target.value='';
-});
-
+document.getElementById('dropZone').addEventListener('click',function(){document.getElementById('fileInput').click();});
+document.getElementById('fileChange').addEventListener('click',function(){document.getElementById('fileInput').click();});
+document.getElementById('fileInput').addEventListener('change',function(e){if(e.target.files[0])handleFile(e.target.files[0]);e.target.value='';});
 var dz=document.getElementById('dropZone');
 dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('drag-over');});
 dz.addEventListener('dragleave',function(){dz.classList.remove('drag-over');});
-dz.addEventListener('drop',function(e){
-  e.preventDefault();dz.classList.remove('drag-over');
-  var f=e.dataTransfer.files[0];
-  if(f&&f.type==='application/pdf') handleFile(f);
-  else showToast('Lütfen PDF dosyası seçin','error');
-});
+dz.addEventListener('drop',function(e){e.preventDefault();dz.classList.remove('drag-over');var f=e.dataTransfer.files[0];if(f&&f.type==='application/pdf')handleFile(f);else showToast('Lütfen PDF dosyası seçin','error');});
 
-// ─── FILE ────────────────────────────────────────────────────────────────────
+// ─── FILE ───────────────────────────────────────────────────────────────────
 function handleFile(file){
   selectedFile=file;
-  document.getElementById('fileSelected').style.display='flex';
-  document.getElementById('dropZone').style.display='none';
+  document.getElementById('fileSelected').style.display='flex';document.getElementById('dropZone').style.display='none';
   document.getElementById('fileName').textContent=file.name;
-
-  var topicInput=document.getElementById('topicInput');
+  var ti=document.getElementById('topicInput');
   var autoName=file.name.replace(/\.pdf$/i,'').replace(/[-_]/g,' ').trim();
-  topicInput.value=autoName;
-
+  ti.value=autoName;
   var badge=document.getElementById('autoFillBadge');
-  badge.style.display='inline-block';
-  badge.textContent="✦ PDF'den alındı";
-  badge.style.color='var(--accent)';
-
-  topicInput.style.borderColor='var(--accent)';
-  topicInput.style.background='rgba(232,180,90,.06)';
-  topicInput.focus();topicInput.select();
-
-  topicInput.addEventListener('blur',function(){
-    topicInput.style.borderColor='';topicInput.style.background='';
-  },{once:true});
-
-  topicInput.oninput=function(){
-    if(topicInput.value!==autoName){
-      badge.textContent='✎ Düzenlendi';badge.style.color='var(--accent2)';
-    } else {
-      badge.textContent="✦ PDF'den alındı";badge.style.color='var(--accent)';
-    }
-  };
+  badge.style.display='inline-block';badge.textContent="✦ PDF'den alındı";badge.style.color='var(--accent)';
+  ti.style.borderColor='var(--accent)';ti.style.background='rgba(232,180,90,.06)';ti.focus();ti.select();
+  ti.addEventListener('blur',function(){ti.style.borderColor='';ti.style.background='';},{once:true});
+  ti.oninput=function(){badge.textContent=ti.value!==autoName?'✎ Düzenlendi':"✦ PDF'den alındı";badge.style.color=ti.value!==autoName?'var(--accent2)':'var(--accent)';};
 }
+function fileToBase64(file){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(){res(r.result.split(',')[1]);};r.onerror=rej;r.readAsDataURL(file);});}
 
-function fileToBase64(file){
-  return new Promise(function(res,rej){
-    var r=new FileReader();
-    r.onload=function(){res(r.result.split(',')[1]);};
-    r.onerror=rej;
-    r.readAsDataURL(file);
-  });
-}
-
-// ─── GENERATE ────────────────────────────────────────────────────────────────
+// ─── GENERATE ───────────────────────────────────────────────────────────────
 async function generateQuestions(){
   var topic=document.getElementById('topicInput').value.trim();
   if(!topic){showToast('Lütfen konu adı girin','error');return;}
   if(!selectedFile){showToast('Lütfen bir PDF dosyası seçin','error');return;}
   if(!getApiKey()){showApiKeyModal();showToast('Önce API key girin','error');return;}
-
-  // Kalan kredi kontrolü
-  var remaining = BUDGET - creditUsed;
-  if(remaining < 0.01){showToast('Kredi tükendi! ($5 limitine ulaşıldı)','error');return;}
-
+  if(creditData.balance !== null && creditData.balance <= 0){showToast('Kredi bitti! 💳 tıklayarak güncelle','error');return;}
   var btn=document.getElementById('generateBtn');
-  btn.disabled=true;
-  btn.innerHTML='<span class="spinner"></span> Üretiliyor...';
-  try{
-    var b64=await fileToBase64(selectedFile);
-    await runGenerate(topic,b64);
-  }catch(err){
-    showToast('Hata: '+(err.message||'Soru üretilemedi'),'error');
-  }
-  btn.disabled=false;
-  btn.innerHTML='✦ Soru Üret';
+  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Üretiliyor...';
+  try{var b64=await fileToBase64(selectedFile);await runGenerate(topic,b64);}
+  catch(err){showToast('Hata: '+(err.message||'Soru üretilemedi'),'error');}
+  btn.disabled=false;btn.innerHTML='✦ Soru Üret';
 }
 
 async function runGenerate(topic,base64){
   var prompt='Bu PDF belgesini analiz et ve "'+topic+'" konusundan '+selectedCount+' adet coktan secmeli soru uret.\n\n'
     +'Kurallar:\n- Her soru PDF icerigine dayali olsun\n- Farkli zorluk seviyelerinde olsun\n'
-    +'- Her sorunun tam olarak 4 sikki olsun (A, B, C, D)\n- Siklar makul ve yaniltici olsun, biri dogru olsun\n'
-    +'- Baska hicbir aciklama veya metin ekleme\n\n'
-    +'Yanlityi SADECE asagidaki JSON formatinda ver, markdown veya baska hicbir sey ekleme:\n'
-    +'{"sorular":[{"soru":"Soru metni?","secenekler":{"A":"...","B":"...","C":"...","D":"..."},"dogru":"A"}]}';
+    +'- Her sorunun tam olarak 4 sikki olsun (A, B, C, D)\n- Siklar makul ve yaniltici olsun\n'
+    +'- Baska hicbir sey ekleme\n\n'
+    +'SADECE JSON:\n{"sorular":[{"soru":"...?","secenekler":{"A":"...","B":"...","C":"...","D":"..."},"dogru":"A"}]}';
 
-  // ✅ OPTİMİZASYON: claude-haiku-4-5-20251001 kullanılıyor (Sonnet'ten 3x ucuz)
-  var resp=await fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:apiHeaders(),
-    body:JSON.stringify({
-      model: MODEL,
-      max_tokens:2000,
-      messages:[{role:'user',content:[
-        {type:'document',source:{type:'base64',media_type:'application/pdf',data:base64}},
-        {type:'text',text:prompt}
-      ]}]
-    })
+  var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:apiHeaders(),
+    body:JSON.stringify({model:MODEL,max_tokens:2500,messages:[{role:'user',content:[
+      {type:'document',source:{type:'base64',media_type:'application/pdf',data:base64}},
+      {type:'text',text:prompt}
+    ]}]})
   });
-
   var data=await resp.json();
-  if(!resp.ok||data.error){
-    var msg=data.error?data.error.message:('HTTP '+resp.status);
-    if(resp.status===401) msg='Geçersiz API key — ⚙ API Key butonundan kontrol et';
-    throw new Error(msg);
-  }
+  if(!resp.ok||data.error){var msg=data.error?data.error.message:'HTTP '+resp.status;if(resp.status===401)msg='Geçersiz API key';throw new Error(msg);}
 
-  // Kredi takibi
-  if(data.usage){
-    var cost = trackCost(data.usage.input_tokens, data.usage.output_tokens);
-    showToast('Bu üretim: $'+cost.toFixed(4)+' · Kalan: $'+(BUDGET-creditUsed).toFixed(3),'info');
-  }
+  var usage=data.usage||{};
+  var cost=estimateCost(usage.input_tokens||0,usage.output_tokens||0);
+  deductCredit(cost);
 
   var raw=(data.content||[]).map(function(c){return c.text||'';}).join('');
   var parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
   var newQs=parsed.sorular||[];
   if(!newQs.length) throw new Error('Soru üretilemedi');
-
   newQs.forEach(function(q){
-    questions.push({
-      id:Date.now()+'_'+Math.random().toString(36).slice(2),
-      text:q.soru, options:q.secenekler, correct:q.dogru, topic:topic,
-      time:new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'}),
-      date:new Date().toLocaleDateString('tr-TR')
-    });
+    questions.push({id:Date.now()+'_'+Math.random().toString(36).slice(2),text:q.soru,options:q.secenekler,correct:q.dogru,topic:topic,
+      time:new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'}),date:new Date().toLocaleDateString('tr-TR')});
   });
   topics[topic]=(topics[topic]||0)+newQs.length;
   topicPDFs[topic]=base64;
-  save(); renderAll(); filterQuestions(topic,null);
-  showToast(newQs.length+' soru eklendi → '+topic,'success');
+  save();renderAll();filterQuestions(topic,null);
+  showToast(newQs.length+' soru eklendi  ·  -$'+cost.toFixed(5),'success');
 }
 
 async function regenTopic(topic){
-  var b64=topicPDFs[topic];
-  if(!b64){showToast('Bu konunun PDF verisi bulunamadı','error');return;}
-  var btn=document.getElementById('generateBtn');
-  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Üretiliyor...';
+  var b64=topicPDFs[topic];if(!b64){showToast('PDF verisi bulunamadı','error');return;}
+  var btn=document.getElementById('generateBtn');btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Üretiliyor...';
   document.getElementById('topicInput').value=topic;
-  try{await runGenerate(topic,b64);}
-  catch(err){showToast('Hata: '+(err.message||'Soru üretilemedi'),'error');}
+  try{await runGenerate(topic,b64);}catch(err){showToast('Hata: '+(err.message||'Soru üretilemedi'),'error');}
   btn.disabled=false;btn.innerHTML='✦ Soru Üret';
 }
 
-// ─── RENDER ──────────────────────────────────────────────────────────────────
+// ─── RENDER ─────────────────────────────────────────────────────────────────
 function renderAll(){
   document.getElementById('totalQuestions').textContent=questions.length;
   document.getElementById('totalTopics').textContent=Object.keys(topics).length;
   document.getElementById('totalPDFs').textContent=Object.keys(topics).length;
-  renderTopics(); renderFilters(); renderQuestions();
+  renderTopics();renderFilters();renderQuestions();
 }
-
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function escAttr(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
-
 function renderTopics(){
-  var list=document.getElementById('topicsList');
-  var keys=Object.keys(topics);
+  var list=document.getElementById('topicsList');var keys=Object.keys(topics);
   if(!keys.length){list.innerHTML='<div style="font-size:12px;color:var(--muted);text-align:center;padding:12px 0">Henüz konu eklenmedi</div>';return;}
-  list.innerHTML=keys.map(function(t){
-    var s=escAttr(t);
+  list.innerHTML=keys.map(function(t){var s=escAttr(t);
     return '<div class="topic-chip'+(currentFilter===t?' active':'')+'" onclick="filterQuestions(\''+s+'\',null)">'
       +'<span class="topic-name">'+esc(t)+'</span>'
-      +'<div style="display:flex;align-items:center;gap:8px">'
-      +'<span class="topic-count">'+topics[t]+'</span>'
+      +'<div style="display:flex;align-items:center;gap:8px"><span class="topic-count">'+topics[t]+'</span>'
       +(topicPDFs[t]?'<button class="topic-regen-btn" onclick="event.stopPropagation();regenTopic(\''+s+'\')">＋ Üret</button>':'')
-      +'</div></div>';
-  }).join('');
+      +'</div></div>';}).join('');
 }
-
 function renderFilters(){
   var keys=Object.keys(topics);
   var html='<button class="filter-tab'+(currentFilter==='all'?' active':'')+'" onclick="filterQuestions(\'all\',this)">Tümü</button>';
-  keys.forEach(function(t){
-    var s=escAttr(t);
-    html+='<button class="filter-tab'+(currentFilter===t?' active':'')+'" onclick="filterQuestions(\''+s+'\',this)">'+esc(t)+'</button>';
-  });
+  keys.forEach(function(t){var s=escAttr(t);html+='<button class="filter-tab'+(currentFilter===t?' active':'')+'" onclick="filterQuestions(\''+s+'\',this)">'+esc(t)+'</button>';});
   document.getElementById('filterRow').innerHTML=html;
 }
-
 function filterQuestions(filter,btn){
   currentFilter=filter;
   document.querySelectorAll('.filter-tab').forEach(function(b){b.classList.remove('active');});
   if(btn) btn.classList.add('active');
-  else document.querySelectorAll('.filter-tab').forEach(function(b){
-    if((filter==='all'&&b.textContent==='Tümü')||b.textContent===filter) b.classList.add('active');
-  });
-  renderTopics(); renderQuestions();
+  else document.querySelectorAll('.filter-tab').forEach(function(b){if((filter==='all'&&b.textContent==='Tümü')||b.textContent===filter)b.classList.add('active');});
+  renderTopics();renderQuestions();
 }
-
 function renderQuestions(){
   var pool=document.getElementById('questionPool');
   var filtered=currentFilter==='all'?questions:questions.filter(function(q){return q.topic===currentFilter;});
-  if(!filtered.length){
-    pool.innerHTML='<div class="empty-state"><div class="empty-icon">🎯</div><div class="empty-title">Soru Havuzu Boş</div><div class="empty-sub">Sol taraftan bir PDF yükleyip soru üretmeye başlayın.</div></div>';
-    return;
-  }
+  if(!filtered.length){pool.innerHTML='<div class="empty-state"><div class="empty-icon">🎯</div><div class="empty-title">Soru Havuzu Boş</div><div class="empty-sub">Sol taraftan bir PDF yükleyip soru üretmeye başlayın.</div></div>';return;}
   var html='';
   filtered.slice().reverse().forEach(function(q,i){
-    var sid=escAttr(q.id); var sc=escAttr(q.correct||'');
-    var opts='';
-    if(q.options) Object.keys(q.options).forEach(function(k){
-      opts+='<div class="q-option" onclick="selectOption(this,\''+sid+'\',\''+k+'\',\''+sc+'\')"><span class="q-opt-label">'+k+'</span><span class="q-opt-text">'+esc(q.options[k])+'</span></div>';
-    });
-    // Kaynak önbellekte varsa rozet göster
-    var srcCached = q.sourceInfo ? ' <span style="font-size:9px;color:var(--success)">✓ önbellekte</span>' : '<span class="credit-warn">⚡ kredi harcar</span>';
+    var sid=escAttr(q.id);var sc=escAttr(q.correct||'');
+    var opts='';if(q.options) Object.keys(q.options).forEach(function(k){opts+='<div class="q-option" onclick="selectOption(this,\''+sid+'\',\''+k+'\',\''+sc+'\')"><span class="q-opt-label">'+k+'</span><span class="q-opt-text">'+esc(q.options[k])+'</span></div>';});
     html+='<div class="question-card" id="qcard-'+sid+'">'
       +'<div class="question-meta"><span class="q-topic">'+esc(q.topic)+'</span><span class="q-num">#'+(filtered.length-i)+'</span><span class="q-time">'+esc(q.date)+' '+esc(q.time)+'</span></div>'
       +'<div class="question-text">'+esc(q.text)+'</div>'
@@ -674,380 +565,110 @@ function renderQuestions(){
       +'<div class="question-actions">'
       +'<button class="q-btn" onclick="copyQuestion(\''+sid+'\')">⊕ Kopyala</button>'
       +'<button class="q-btn edit" onclick="editQuestion(\''+sid+'\')">✎ Düzenle</button>'
-      +'<button class="q-btn src" id="srcbtn-'+sid+'" onclick="toggleSource(\''+sid+'\')">⊙ Kaynak'+srcCached+'</button>'
+      +'<button class="q-btn src" id="srcbtn-'+sid+'" onclick="toggleSource(\''+sid+'\')">⊙ Kaynağı Göster</button>'
       +'<button class="q-btn delete" onclick="deleteQuestion(\''+sid+'\')">✕ Sil</button>'
       +'</div></div>';
   });
   pool.innerHTML=html;
 }
 
-// ─── ACTIONS ─────────────────────────────────────────────────────────────────
-function selectOption(el,qid,key,correct){
-  var c=document.getElementById('opts-'+qid);
-  if(!c||c.classList.contains('answered')) return;
-  c.classList.add('answered');
-  c.querySelectorAll('.q-option').forEach(function(o){
-    var k=o.querySelector('.q-opt-label').textContent;
-    if(k===correct) o.classList.add('correct');
-    else if(k===key) o.classList.add('wrong');
-    else o.classList.add('dimmed');
-  });
-}
-
-function copyQuestion(id){
-  var q=questions.find(function(q){return q.id===id;});
-  if(!q) return;
-  var text=q.text;
-  if(q.options) Object.keys(q.options).forEach(function(k){text+='\n'+k+') '+q.options[k];});
-  if(q.correct) text+='\nDoğru Cevap: '+q.correct;
-  if(navigator.clipboard&&navigator.clipboard.writeText){
-    navigator.clipboard.writeText(text).then(function(){showToast('Soru kopyalandı ✓','success');}).catch(function(){fallbackCopy(text);});
-  } else fallbackCopy(text);
-}
-
-function fallbackCopy(text){
-  var ta=document.createElement('textarea');
-  ta.value=text;ta.style.cssText='position:fixed;top:-9999px;left:-9999px;opacity:0';
-  document.body.appendChild(ta);ta.focus();ta.select();
-  try{document.execCommand('copy');showToast('Soru kopyalandı ✓','success');}
-  catch(e){showToast('Kopyalama başarısız','error');}
-  document.body.removeChild(ta);
-}
-
-function deleteQuestion(id){
-  questions=questions.filter(function(q){return q.id!==id;});
-  topics={};questions.forEach(function(q){topics[q.topic]=(topics[q.topic]||0)+1;});
-  save();renderAll();
-}
-
-function clearAll(){
-  if(!questions.length) return;
-  showConfirm('Tüm sorular silinsin mi?',function(){
-    questions=[];topics={};topicPDFs={};currentFilter='all';
-    save();renderAll();showToast('Havuz temizlendi','info');
-  });
-}
-
+// ─── ACTIONS ────────────────────────────────────────────────────────────────
+function selectOption(el,qid,key,correct){var c=document.getElementById('opts-'+qid);if(!c||c.classList.contains('answered'))return;c.classList.add('answered');c.querySelectorAll('.q-option').forEach(function(o){var k=o.querySelector('.q-opt-label').textContent;if(k===correct)o.classList.add('correct');else if(k===key)o.classList.add('wrong');else o.classList.add('dimmed');});}
+function copyQuestion(id){var q=questions.find(function(q){return q.id===id;});if(!q)return;var text=q.text;if(q.options)Object.keys(q.options).forEach(function(k){text+='\n'+k+') '+q.options[k];});if(q.correct)text+='\nDoğru Cevap: '+q.correct;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){showToast('Soru kopyalandı ✓','success');}).catch(function(){fallbackCopy(text);});}else fallbackCopy(text);}
+function fallbackCopy(text){var ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;top:-9999px;left:-9999px;opacity:0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');showToast('Soru kopyalandı ✓','success');}catch(e){showToast('Kopyalama başarısız','error');}document.body.removeChild(ta);}
+function deleteQuestion(id){questions=questions.filter(function(q){return q.id!==id;});topics={};questions.forEach(function(q){topics[q.topic]=(topics[q.topic]||0)+1;});save();renderAll();}
+function clearAll(){if(!questions.length)return;showConfirm('Tüm sorular silinsin mi?',function(){questions=[];topics={};topicPDFs={};currentFilter='all';save();renderAll();showToast('Havuz temizlendi','info');});}
 function exportQuestions(){
   if(!questions.length){showToast('Dışa aktarılacak soru yok','error');return;}
   var filtered=currentFilter==='all'?questions:questions.filter(function(q){return q.topic===currentFilter;});
-  var text=filtered.map(function(q,i){
-    var s=(i+1)+'. ['+q.topic+'] '+q.text;
-    if(q.options) Object.keys(q.options).forEach(function(k){s+='\n   '+k+') '+q.options[k];});
-    if(q.correct) s+='\n   ✓ Doğru Cevap: '+q.correct;
-    return s;
-  }).join('\n\n');
-  var blob=new Blob([text],{type:'text/plain;charset=utf-8'});
-  var url=URL.createObjectURL(blob);
-  var a=document.createElement('a');
-  a.href=url;a.download='soru-havuzu-'+(currentFilter==='all'?'tumu':currentFilter)+'.txt';
-  a.style.display='none';document.body.appendChild(a);a.click();
-  setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},500);
-  showToast(filtered.length+' soru dışa aktarıldı ✓','success');
+  var text=filtered.map(function(q,i){var s=(i+1)+'. ['+q.topic+'] '+q.text;if(q.options)Object.keys(q.options).forEach(function(k){s+='\n   '+k+') '+q.options[k];});if(q.correct)s+='\n   ✓ Doğru Cevap: '+q.correct;return s;}).join('\n\n');
+  var blob=new Blob([text],{type:'text/plain;charset=utf-8'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='soru-havuzu-'+(currentFilter==='all'?'tumu':currentFilter)+'.txt';a.style.display='none';document.body.appendChild(a);a.click();setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},500);showToast(filtered.length+' soru dışa aktarıldı ✓','success');
 }
 
-// ─── EDIT QUESTION ────────────────────────────────────────────────────────────
+// ─── EDIT ───────────────────────────────────────────────────────────────────
 function editQuestion(id){
-  var q=questions.find(function(q){return q.id===id;});
-  if(!q) return;
-
-  var ov=document.createElement('div');
-  ov.className='modal-overlay';
-
+  var q=questions.find(function(q){return q.id===id;});if(!q)return;
+  var ov=document.createElement('div');ov.className='modal-overlay';
   var optKeys=['A','B','C','D'];
-  var optsHtml=optKeys.map(function(k){
-    var val=(q.options&&q.options[k])||'';
-    var isCorrect=q.correct===k;
-    return '<div class="opt-row">'
-      +'<div class="opt-key">'+k+'</div>'
-      +'<input class="modal-input" id="opt_'+k+'" value="'+esc(val)+'" style="flex:1" placeholder="'+k+' şıkkı...">'
-      +'<label class="correct-radio'+(isCorrect?' selected':'')+'" id="lbl_'+k+'">'
-      +'<input type="radio" name="correct_'+id+'" value="'+k+'"'+(isCorrect?' checked':'')+' onchange="document.querySelectorAll(\'[id^=lbl_]\').forEach(function(l){l.classList.remove(\'selected\')});this.closest(\'.correct-radio\').classList.add(\'selected\')">'
-      +'Doğru</label>'
-      +'</div>';
-  }).join('');
-
-  ov.innerHTML='<div class="modal-box">'
-    +'<div class="modal-head"><span class="modal-head-title">✎ Soruyu Düzenle</span><button class="modal-close" id="mClose">✕</button></div>'
-    +'<div class="modal-body">'
-    +'<div><div class="modal-label">Soru Metni</div><textarea class="modal-textarea" id="editText">'+esc(q.text)+'</textarea></div>'
-    +'<div><div class="modal-label">Şıklar &amp; Doğru Cevap</div><div style="display:flex;flex-direction:column;gap:8px">'+optsHtml+'</div></div>'
-    +'</div>'
-    +'<div class="modal-foot"><button class="btn-cancel" id="mCancel">İptal</button><button class="btn-save" id="mSave">✦ Kaydet</button></div>'
-    +'</div>';
-
+  var optsHtml=optKeys.map(function(k){var val=(q.options&&q.options[k])||'';var isCorrect=q.correct===k;
+    return '<div class="opt-row"><div class="opt-key">'+k+'</div><input class="modal-input" id="opt_'+k+'" value="'+esc(val)+'" style="flex:1" placeholder="'+k+' şıkkı...">'
+      +'<label class="correct-radio'+(isCorrect?' selected':'')+'" id="lbl_'+k+'"><input type="radio" name="correct_'+id+'" value="'+k+'"'+(isCorrect?' checked':'')+' onchange="document.querySelectorAll(\'[id^=lbl_]\').forEach(function(l){l.classList.remove(\'selected\')});this.closest(\'.correct-radio\').classList.add(\'selected\')">Doğru</label></div>';}).join('');
+  ov.innerHTML='<div class="modal-box"><div class="modal-head"><span class="modal-head-title">✎ Soruyu Düzenle</span><button class="modal-close" id="mClose">✕</button></div>'
+    +'<div class="modal-body"><div><div class="modal-label">Soru Metni</div><textarea class="modal-textarea" id="editText">'+esc(q.text)+'</textarea></div>'
+    +'<div><div class="modal-label">Şıklar &amp; Doğru Cevap</div><div style="display:flex;flex-direction:column;gap:8px">'+optsHtml+'</div></div></div>'
+    +'<div class="modal-foot"><button class="btn-cancel" id="mCancel">İptal</button><button class="btn-save" id="mSave">✦ Kaydet</button></div></div>';
   document.body.appendChild(ov);
-
   ov.querySelector('#mClose').onclick=function(){document.body.removeChild(ov);};
   ov.querySelector('#mCancel').onclick=function(){document.body.removeChild(ov);};
   ov.addEventListener('click',function(e){if(e.target===ov)document.body.removeChild(ov);});
-
   ov.querySelector('#mSave').onclick=function(){
-    var newText=ov.querySelector('#editText').value.trim();
-    if(!newText){showToast('Soru metni boş olamaz','error');return;}
-    var newOpts={};
-    var allFilled=true;
-    optKeys.forEach(function(k){
-      var v=ov.querySelector('#opt_'+k).value.trim();
-      if(!v) allFilled=false;
-      newOpts[k]=v;
-    });
+    var newText=ov.querySelector('#editText').value.trim();if(!newText){showToast('Soru metni boş olamaz','error');return;}
+    var newOpts={};var allFilled=true;optKeys.forEach(function(k){var v=ov.querySelector('#opt_'+k).value.trim();if(!v)allFilled=false;newOpts[k]=v;});
     if(!allFilled){showToast('Tüm şıkları doldurun','error');return;}
-    var checkedRadio=ov.querySelector('input[name="correct_'+id+'"]:checked');
-    if(!checkedRadio){showToast('Doğru cevabı seçin','error');return;}
-    var newCorrect=checkedRadio.value;
-
+    var cr=ov.querySelector('input[name="correct_'+id+'"]:checked');if(!cr){showToast('Doğru cevabı seçin','error');return;}
     var idx=questions.findIndex(function(q){return q.id===id;});
-    if(idx>-1){
-      questions[idx].text=newText;
-      questions[idx].options=newOpts;
-      questions[idx].correct=newCorrect;
-      save(); renderQuestions();
-      showToast('Soru güncellendi ✓','success');
-    }
+    if(idx>-1){questions[idx].text=newText;questions[idx].options=newOpts;questions[idx].correct=cr.value;save();renderQuestions();showToast('Soru güncellendi ✓','success');}
     document.body.removeChild(ov);
   };
 }
 
-// ─── OPEN PDF ─────────────────────────────────────────────────────────────────
-function openPDF(topic){
-  var b64=topicPDFs[topic];
-  if(!b64){showToast('PDF verisi bulunamadı','error');return;}
-  try{
-    var byteChars=atob(b64);
-    var byteArr=new Uint8Array(byteChars.length);
-    for(var i=0;i<byteChars.length;i++) byteArr[i]=byteChars.charCodeAt(i);
-    var blob=new Blob([byteArr],{type:'application/pdf'});
-    var url=URL.createObjectURL(blob);
-    var win=window.open(url,'_blank');
-    if(!win){
-      var a=document.createElement('a');
-      a.href=url; a.download=topic+'.pdf';
-      a.style.display='none';
-      document.body.appendChild(a); a.click();
-      setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},1000);
-      showToast('Popup engellendi, PDF indiriliyor...','info');
-    } else {
-      setTimeout(function(){URL.revokeObjectURL(url);},10000);
-    }
-  }catch(e){showToast('PDF açılamadı: '+e.message,'error');}
-}
+// ─── PDF ────────────────────────────────────────────────────────────────────
+function openPDF(topic){var b64=topicPDFs[topic];if(!b64){showToast('PDF verisi bulunamadı','error');return;}try{var arr=new Uint8Array(atob(b64).split('').map(function(c){return c.charCodeAt(0);}));var url=URL.createObjectURL(new Blob([arr],{type:'application/pdf'}));var win=window.open(url,'_blank');if(!win){var a=document.createElement('a');a.href=url;a.download=topic+'.pdf';a.style.display='none';document.body.appendChild(a);a.click();setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},1000);showToast('Popup engellendi, PDF indiriliyor...','info');}else setTimeout(function(){URL.revokeObjectURL(url);},10000);}catch(e){showToast('PDF açılamadı: '+e.message,'error');}}
+function downloadPDF(topic){var b64=topicPDFs[topic];if(!b64){showToast('PDF verisi bulunamadı','error');return;}try{var arr=new Uint8Array(atob(b64).split('').map(function(c){return c.charCodeAt(0);}));var url=URL.createObjectURL(new Blob([arr],{type:'application/pdf'}));var a=document.createElement('a');a.href=url;a.download=topic+'.pdf';a.style.display='none';document.body.appendChild(a);a.click();setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},1000);showToast('PDF indiriliyor...','info');}catch(e){showToast('PDF indirilemedi: '+e.message,'error');}}
 
-// ─── KAYNAK GÖSTER ───────────────────────────────────────────────────────────
-// ✅ OPTİMİZASYON: Önbellekte yoksa kredi uyarısı göster, onay al
+// ─── SOURCE ─────────────────────────────────────────────────────────────────
 async function toggleSource(id){
-  var box=document.getElementById('source-'+id);
-  var btn=document.getElementById('srcbtn-'+id);
-  if(!box) return;
-
-  if(box.style.display==='block'){
-    box.style.display='none';
-    renderQuestions(); // butonu güncelle
-    return;
-  }
-
-  var q=questions.find(function(q){return q.id===id;});
-  if(!q) return;
-
-  // ✅ Önbellekte varsa — BEDAVA, direkt göster
-  if(q.sourceInfo){
-    box.style.display='block';
-    renderSourceBox(box,id,q.sourceInfo,q.topic);
-    if(btn){ btn.textContent='⊙ Kaynağı Gizle'; btn.classList.add('active'); }
-    return;
-  }
-
-  // ✅ Önbellekte yoksa — kredi uyarısı
-  var b64=topicPDFs[q.topic];
-  if(!b64){showToast('Bu konunun PDF verisi bulunamadı','error');return;}
-
-  var remaining = BUDGET - creditUsed;
-  var confirmed = confirm(
-    '⚡ Kredi Uyarısı\n\n'
-    +'Bu özellik PDF\'i tekrar API\'ye gönderir ve tahminen $0.005–0.02 kredi harcar.\n'
-    +'Kalan krediniz: $'+remaining.toFixed(3)+'\n\n'
-    +'Bir kez sorgulandıktan sonra önbelleğe alınır, tekrar kredi harcanmaz.\n\n'
-    +'Devam etmek istiyor musun?'
-  );
-  if(!confirmed) return;
-
-  box.style.display='block';
-  if(btn){ btn.textContent='⊙ Yükleniyor...'; btn.classList.add('active'); }
-
-  box.innerHTML='<div class="source-loading"><span style="display:inline-block;width:10px;height:10px;border:2px solid rgba(232,180,90,.2);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite;margin-right:8px;vertical-align:middle;"></span>PDF\'de ilgili bölüm aranıyor...</div>';
-
+  var box=document.getElementById('source-'+id);var btn=document.getElementById('srcbtn-'+id);if(!box)return;
+  if(box.style.display==='block'){box.style.display='none';btn.textContent='⊙ Kaynağı Göster';btn.classList.remove('active');return;}
+  var q=questions.find(function(q){return q.id===id;});if(!q)return;
+  if(q.sourceInfo){btn.textContent='⊙ Kaynağı Gizle';btn.classList.add('active');box.style.display='block';renderSourceBox(box,id,q.sourceInfo,q.topic);return;}
+  var proceed=confirm('⚠️ Kaynak araması ek API kredisi harcar.\nBir kez yüklendikten sonra ücretsiz görüntülenir.\n\nDevam etmek istiyor musun?');
+  if(!proceed)return;
+  var b64=topicPDFs[q.topic];btn.textContent='⊙ Kaynağı Gizle';btn.classList.add('active');box.style.display='block';
+  if(!b64){box.innerHTML='<div class="source-error">⚠ PDF verisi bulunamadı.</div>';return;}
+  box.innerHTML='<div class="source-loading"><span style="display:inline-block;width:10px;height:10px;border:2px solid rgba(232,180,90,.2);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite;margin-right:8px;vertical-align:middle;"></span>PDF\'de bölüm aranıyor...</div>';
   try{
-    var prompt='Asagidaki soru bu PDF belgesinden uretilmistir:\n\n"'+q.text+'"\n\n'
-      +'Bu sorunun PDF\'de hangi bolum, baslik veya sayfaya ait oldugunu bul.\n'
-      +'SADECE JSON formatinda yanit ver:\n'
-      +'{"bolum":"Bolum adi","ozet":"Ilgili icerik ozeti","konum":"PDF konumu","dogru_cevap_aciklama":"Neden dogru"}';
-
-    // ✅ OPTİMİZASYON: Haiku ile kaynak arama
-    var resp=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:apiHeaders(),
-      body:JSON.stringify({
-        model: MODEL,
-        max_tokens:600,
-        messages:[{role:'user',content:[
-          {type:'document',source:{type:'base64',media_type:'application/pdf',data:b64}},
-          {type:'text',text:prompt}
-        ]}]
-      })
+    var prompt='Soru: "'+q.text+'"\nSADECE JSON:\n{"bolum":"Bolum","ozet":"Ozet","konum":"Konum","dogru_cevap_aciklama":"Aciklama"}';
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:apiHeaders(),
+      body:JSON.stringify({model:MODEL,max_tokens:800,messages:[{role:'user',content:[
+        {type:'document',source:{type:'base64',media_type:'application/pdf',data:b64}},
+        {type:'text',text:prompt}
+      ]}]})
     });
     var data=await resp.json();
-    if(!resp.ok||data.error){
-      var emsg=data.error?data.error.message:('HTTP '+resp.status);
-      if(resp.status===401) emsg='Geçersiz API key';
-      throw new Error(emsg);
-    }
-
-    // Kredi takibi
-    if(data.usage){
-      var cost = trackCost(data.usage.input_tokens, data.usage.output_tokens);
-      showToast('Kaynak sorgusu: $'+cost.toFixed(4)+' · Kalan: $'+(BUDGET-creditUsed).toFixed(3),'info');
-    }
-
+    if(!resp.ok||data.error)throw new Error(data.error?data.error.message:'HTTP '+resp.status);
+    var usage=data.usage||{};var cost=estimateCost(usage.input_tokens||0,usage.output_tokens||0);deductCredit(cost);
     var raw=(data.content||[]).map(function(c){return c.text||'';}).join('');
     var info=JSON.parse(raw.replace(/```json|```/g,'').trim());
-
-    // Önbelleğe al
-    var idx=questions.findIndex(function(q){return q.id===id;});
-    if(idx>-1){ questions[idx].sourceInfo=info; save(); }
-
+    var idx=questions.findIndex(function(q){return q.id===id;});if(idx>-1){questions[idx].sourceInfo=info;save();}
     renderSourceBox(box,id,info,q.topic);
-    if(btn){ btn.textContent='⊙ Kaynağı Gizle ✓'; btn.classList.add('active'); }
-    renderQuestions();
-  }catch(err){
-    box.innerHTML='<div class="source-error">⚠ Kaynak bulunamadı: '+esc(err.message)+'</div>';
-    if(btn){ btn.textContent='⊙ Kaynak <span class="credit-warn">⚡ kredi harcar</span>'; btn.classList.remove('active'); }
-  }
+    showToast('Kaynak yüklendi  ·  -$'+cost.toFixed(5),'info');
+  }catch(err){box.innerHTML='<div class="source-error">⚠ '+esc(err.message)+'</div>';}
 }
 
 function renderSourceBox(box,id,info,topic){
-  var sid=escAttr(id);
-  var stopic=escAttr(topic);
-  box.innerHTML='<div class="source-content" id="srcview-'+sid+'">'
-    +srcRow('📂 Bölüm',   info.bolum||'',               'bolum',sid)
-    +srcRow('📍 Konum',   info.konum||'',               'konum',sid)
-    +srcRow('📄 İçerik',  info.ozet||'',                'ozet', sid, true)
-    +srcRowExplain(info.dogru_cevap_aciklama||'',        sid,    true)
-    +'<div class="source-row src-edit-row">'
-    +'<span style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;width:100%">'
+  var sid=escAttr(id);var st=escAttr(topic);
+  box.innerHTML='<div class="source-content">'
+    +srcRow('📂 Bölüm',info.bolum||'','bolum',sid)+srcRow('📍 Konum',info.konum||'','konum',sid)
+    +srcRow('📄 İçerik',info.ozet||'','ozet',sid,true)+srcRowExplain(info.dogru_cevap_aciklama||'',sid)
+    +'<div class="source-row src-edit-row"><span style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;width:100%">'
     +'<button class="src-edit-btn" onclick="toggleSourceEdit(\''+sid+'\')">✎ Düzenle</button>'
     +'<button class="src-edit-btn src-edit-save" id="srcSave-'+sid+'" style="display:none" onclick="saveSourceEdit(\''+id+'\')">✦ Kaydet</button>'
     +'<button class="src-edit-btn src-edit-cancel" id="srcCancel-'+sid+'" style="display:none" onclick="cancelSourceEdit(\''+sid+'\')">✕ İptal</button>'
     +'<span style="flex:1"></span>'
-    +'<button onclick="openPDF(\''+stopic+'\')" class="src-pdf-btn">↗ Yeni Sekmede Aç</button>'
-    +'<button onclick="downloadPDF(\''+stopic+'\')" class="src-pdf-btn src-pdf-dl">↓ İndir</button>'
-    +'</span></div>'
-    +'</div>';
+    +'<button onclick="openPDF(\''+st+'\')" class="src-pdf-btn">↗ Aç</button>'
+    +'<button onclick="downloadPDF(\''+st+'\')" class="src-pdf-btn src-pdf-dl">↓ İndir</button>'
+    +'</span></div></div>';
 }
+function srcRow(label,val,field,sid,tall){return '<div class="source-row"><span class="source-label">'+label+'</span><span class="source-val src-display" id="disp_'+field+'_'+sid+'">'+esc(val||'—')+'</span>'+(tall?'<textarea class="src-edit-input src-textarea" id="inp_'+field+'_'+sid+'" style="display:none">'+esc(val)+'</textarea>':'<input class="src-edit-input" id="inp_'+field+'_'+sid+'" value="'+esc(val)+'" style="display:none">')+'</div>';}
+function srcRowExplain(val,sid){return '<div class="source-row source-explain"><span class="source-label">✓ Doğru Cevap</span><span class="source-val src-display" id="disp_dogru_'+sid+'">'+esc(val||'—')+'</span><textarea class="src-edit-input src-textarea" id="inp_dogru_'+sid+'" style="display:none">'+esc(val)+'</textarea></div>';}
+function toggleSourceEdit(sid){var fields=['bolum','konum','ozet','dogru'];var isEditing=document.getElementById('inp_bolum_'+sid).style.display!=='none';fields.forEach(function(f){var d=document.getElementById('disp_'+f+'_'+sid);var i=document.getElementById('inp_'+f+'_'+sid);if(!d||!i)return;if(isEditing){d.style.display='';i.style.display='none';}else{i.value=d.textContent==='—'?'':d.textContent;d.style.display='none';i.style.display='';}});var s=document.getElementById('srcSave-'+sid);var c=document.getElementById('srcCancel-'+sid);if(s)s.style.display=isEditing?'none':'inline-block';if(c)c.style.display=isEditing?'none':'inline-block';}
+function cancelSourceEdit(sid){toggleSourceEdit(sid);}
+function saveSourceEdit(id){var sid=escAttr(id);var fields=['bolum','konum','ozet','dogru'];var ni={};fields.forEach(function(f){var i=document.getElementById('inp_'+f+'_'+sid);ni[f]=i?i.value.trim():'';});var info={bolum:ni.bolum,konum:ni.konum,ozet:ni.ozet,dogru_cevap_aciklama:ni.dogru};var idx=questions.findIndex(function(q){return q.id===id;});if(idx>-1){questions[idx].sourceInfo=info;save();}var box=document.getElementById('source-'+id);var q=questions.find(function(q){return q.id===id;});if(box&&q)renderSourceBox(box,id,info,q.topic);showToast('Kaynak güncellendi ✓','success');}
 
-function srcRow(label, val, field, sid, tall){
-  return '<div class="source-row">'
-    +'<span class="source-label">'+label+'</span>'
-    +'<span class="source-val src-display" id="disp_'+field+'_'+sid+'">'+esc(val||'—')+'</span>'
-    +(tall
-      ? '<textarea class="src-edit-input src-textarea" id="inp_'+field+'_'+sid+'" style="display:none">'+esc(val)+'</textarea>'
-      : '<input  class="src-edit-input" id="inp_'+field+'_'+sid+'" value="'+esc(val)+'" style="display:none">')
-    +'</div>';
-}
-
-function srcRowExplain(val, sid, tall){
-  return '<div class="source-row source-explain">'
-    +'<span class="source-label">✓ Doğru Cevap</span>'
-    +'<span class="source-val src-display" id="disp_dogru_'+sid+'">'+esc(val||'—')+'</span>'
-    +'<textarea class="src-edit-input src-textarea" id="inp_dogru_'+sid+'" style="display:none">'+esc(val)+'</textarea>'
-    +'</div>';
-}
-
-function toggleSourceEdit(sid){
-  var fields=['bolum','konum','ozet','dogru'];
-  var isEditing=document.getElementById('inp_bolum_'+sid).style.display!=='none';
-  fields.forEach(function(f){
-    var disp=document.getElementById('disp_'+f+'_'+sid);
-    var inp =document.getElementById('inp_'+f+'_'+sid);
-    if(!disp||!inp) return;
-    if(isEditing){
-      disp.style.display=''; inp.style.display='none';
-    } else {
-      var cur=disp.textContent==='—'?'':disp.textContent;
-      if(inp.tagName==='TEXTAREA') inp.value=cur; else inp.value=cur;
-      disp.style.display='none'; inp.style.display='';
-    }
-  });
-  var saveBtn=document.getElementById('srcSave-'+sid);
-  var cancelBtn=document.getElementById('srcCancel-'+sid);
-  if(saveBtn){ saveBtn.style.display=isEditing?'none':'inline-block'; }
-  if(cancelBtn){ cancelBtn.style.display=isEditing?'none':'inline-block'; }
-}
-
-function cancelSourceEdit(sid){
-  toggleSourceEdit(sid);
-}
-
-function saveSourceEdit(id){
-  var sid=escAttr(id);
-  var fields=['bolum','konum','ozet','dogru'];
-  var newInfo={};
-  fields.forEach(function(f){
-    var inp=document.getElementById('inp_'+f+'_'+sid);
-    newInfo[f]=inp?inp.value.trim():'';
-  });
-  var info={
-    bolum:newInfo.bolum,
-    konum:newInfo.konum,
-    ozet:newInfo.ozet,
-    dogru_cevap_aciklama:newInfo.dogru
-  };
-  var idx=questions.findIndex(function(q){return q.id===id;});
-  if(idx>-1){ questions[idx].sourceInfo=info; save(); }
-
-  var box=document.getElementById('source-'+id);
-  var q=questions.find(function(q){return q.id===id;});
-  if(box&&q) renderSourceBox(box,id,info,q.topic);
-  showToast('Kaynak bilgisi güncellendi ✓','success');
-}
-
-function downloadPDF(topic){
-  var b64=topicPDFs[topic];
-  if(!b64){showToast('PDF verisi bulunamadı','error');return;}
-  try{
-    var byteChars=atob(b64);
-    var byteArr=new Uint8Array(byteChars.length);
-    for(var i=0;i<byteChars.length;i++) byteArr[i]=byteChars.charCodeAt(i);
-    var blob=new Blob([byteArr],{type:'application/pdf'});
-    var url=URL.createObjectURL(blob);
-    var a=document.createElement('a');
-    a.href=url; a.download=topic+'.pdf';
-    a.style.display='none';
-    document.body.appendChild(a); a.click();
-    setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},1000);
-    showToast('PDF indiriliyor...','info');
-  }catch(e){showToast('PDF indirilemedi: '+e.message,'error');}
-}
-
-function showToast(msg,type){
-  var t=document.createElement('div');
-  t.className='toast '+(type||'info');t.textContent=msg;
-  document.body.appendChild(t);
-  setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},3500);
-}
-
-function showConfirm(msg,onYes){
-  var ov=document.createElement('div');
-  ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:2000;display:flex;align-items:center;justify-content:center;';
-  var bx=document.createElement('div');
-  bx.style.cssText='background:var(--surface);border:1px solid var(--border);border-radius:2px;padding:28px 32px;max-width:340px;width:90%;';
-  bx.innerHTML='<div style="font-family:Fraunces,serif;font-size:16px;color:var(--text);margin-bottom:20px;">'+msg+'</div>'
-    +'<div style="display:flex;gap:10px;justify-content:flex-end;">'
-    +'<button id="cNo" style="padding:8px 20px;background:transparent;border:1px solid var(--border);border-radius:2px;color:var(--muted);font-family:monospace;font-size:11px;cursor:pointer;">İptal</button>'
-    +'<button id="cYes" style="padding:8px 20px;background:var(--danger);border:none;border-radius:2px;color:#fff;font-family:monospace;font-size:11px;cursor:pointer;">Evet, Sil</button>'
-    +'</div>';
-  ov.appendChild(bx);document.body.appendChild(ov);
-  bx.querySelector('#cYes').onclick=function(){document.body.removeChild(ov);onYes();};
-  bx.querySelector('#cNo').onclick=function(){document.body.removeChild(ov);};
-}
+// ─── UTILS ──────────────────────────────────────────────────────────────────
+function showToast(msg,type){var t=document.createElement('div');t.className='toast '+(type||'info');t.textContent=msg;document.body.appendChild(t);setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},3500);}
+function showConfirm(msg,onYes){var ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:2000;display:flex;align-items:center;justify-content:center;';var bx=document.createElement('div');bx.style.cssText='background:var(--surface);border:1px solid var(--border);border-radius:2px;padding:28px 32px;max-width:340px;width:90%;';bx.innerHTML='<div style="font-family:Fraunces,serif;font-size:16px;color:var(--text);margin-bottom:20px;">'+msg+'</div><div style="display:flex;gap:10px;justify-content:flex-end;"><button id="cNo" style="padding:8px 20px;background:transparent;border:1px solid var(--border);border-radius:2px;color:var(--muted);font-family:monospace;font-size:11px;cursor:pointer;">İptal</button><button id="cYes" style="padding:8px 20px;background:var(--danger);border:none;border-radius:2px;color:#fff;font-family:monospace;font-size:11px;cursor:pointer;">Evet, Sil</button></div>';ov.appendChild(bx);document.body.appendChild(ov);bx.querySelector('#cYes').onclick=function(){document.body.removeChild(ov);onYes();};bx.querySelector('#cNo').onclick=function(){document.body.removeChild(ov);};}
 </script>
 </body>
 </html>
