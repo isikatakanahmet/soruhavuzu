@@ -64,7 +64,7 @@ FSEK kapsamında aşağıdaki yollara başvurulabilir:
 
 Lisanslama, işbirliği veya izin talepleri için:
 
-**[E-posta adresiniz]** | **[Web siteniz / LinkedIn]**
+**[isikatakanahmet@gmail.com]** | **[https://www.linkedin.com/in/atakanisik/]**
 
 ---
 
