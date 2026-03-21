@@ -196,6 +196,9 @@
   .toast.info{border-color:rgba(232,180,90,.3);color:var(--accent);}
   @keyframes toastIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
+  /* Kredi uyarı rozeti */
+  .credit-warn{display:inline-flex;align-items:center;gap:5px;font-size:9px;letter-spacing:1px;color:#BA7517;background:rgba(250,199,117,.12);border:1px solid rgba(250,199,117,.25);padding:2px 8px;border-radius:20px;margin-left:6px;}
+
   ::-webkit-scrollbar{width:4px;}
   ::-webkit-scrollbar-track{background:transparent;}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
@@ -217,6 +220,10 @@
       </div>
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
         <div id="apiKeyBadge" style="display:none;font-size:10px;letter-spacing:1px;color:var(--success);background:rgba(90,232,160,.08);border:1px solid rgba(90,232,160,.2);padding:4px 12px;border-radius:20px;">✓ API Key Aktif</div>
+        <!-- KREDİ GÖSTERGESI -->
+        <div id="creditBadge" style="font-size:10px;letter-spacing:1px;color:#BA7517;background:rgba(250,199,117,.1);border:1px solid rgba(250,199,117,.25);padding:4px 12px;border-radius:20px;display:none;">
+          ⚡ <span id="creditLeft">$5.00</span> kaldı
+        </div>
         <button onclick="showApiKeyModal()" style="padding:8px 16px;background:transparent;border:1px solid var(--border);border-radius:2px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">⚙ API Key</button>
         <div class="stats-bar">
           <div class="stat"><div class="stat-num" id="totalQuestions">0</div><div class="stat-label">Toplam Soru</div></div>
@@ -233,6 +240,8 @@
         <div class="panel-header">
           <div class="panel-dot"></div>
           <span class="panel-title">PDF Yükle &amp; Soru Üret</span>
+          <!-- MODEL ROZETI -->
+          <span style="margin-left:auto;font-size:9px;letter-spacing:1px;color:var(--success);background:rgba(90,232,160,.08);border:1px solid rgba(90,232,160,.2);padding:2px 8px;border-radius:20px;">⚡ Haiku · Ekonomik</span>
         </div>
         <div class="panel-body">
           <div class="form-group">
@@ -268,6 +277,12 @@
           </div>
 
           <button class="btn-generate" id="generateBtn" onclick="generateQuestions()">✦ Soru Üret</button>
+
+          <!-- TAHMİNİ MALİYET GÖSTERGESI -->
+          <div style="margin-top:12px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:2px;font-size:11px;color:var(--muted);">
+            <span style="color:var(--accent);">⚡ Model:</span> Claude Haiku 4.5 &nbsp;·&nbsp;
+            <span style="color:var(--accent);">Tahmini:</span> ~$0.01–0.03 / üretim
+          </div>
         </div>
       </div>
 
@@ -307,19 +322,61 @@
 <script>
 // ─── STATE ───────────────────────────────────────────────────────────────────
 function safeLoad(k,fb){try{return JSON.parse(localStorage.getItem(k))||fb;}catch(e){return fb;}}
-var questions = safeLoad('soruHavuzu',[]);
-var topics    = safeLoad('soruKonular',{});
-var topicPDFs = safeLoad('soruTopicPDFs',{});
+var questions  = safeLoad('soruHavuzu',[]);
+var topics     = safeLoad('soruKonular',{});
+var topicPDFs  = safeLoad('soruTopicPDFs',{});
+var creditUsed = parseFloat(localStorage.getItem('soruCreditUsed')||'0');
+var BUDGET     = 5.00;
 var selectedCount = 3;
 var selectedFile  = null;
 var currentFilter = 'all';
+
+// ─── MODEL ───────────────────────────────────────────────────────────────────
+// ✅ OPTİMİZASYON: Sonnet yerine Haiku kullanılıyor — 3x tasarruf
+var MODEL = 'claude-haiku-4-5-20251001';
+var MODEL_INPUT_PRICE  = 1;   // $ per 1M token
+var MODEL_OUTPUT_PRICE = 5;   // $ per 1M token
 
 function getApiKey(){return localStorage.getItem('anthropicApiKey')||'';}
 
 function save(){
   localStorage.setItem('soruHavuzu',JSON.stringify(questions));
   localStorage.setItem('soruKonular',JSON.stringify(topics));
+  localStorage.setItem('soruCreditUsed',creditUsed.toString());
   try{localStorage.setItem('soruTopicPDFs',JSON.stringify(topicPDFs));}catch(e){}
+}
+
+// ─── KREDİ TAKİBİ ────────────────────────────────────────────────────────────
+function estimateCost(inputTokens, outputTokens){
+  return (inputTokens / 1e6 * MODEL_INPUT_PRICE) + (outputTokens / 1e6 * MODEL_OUTPUT_PRICE);
+}
+
+function trackCost(inputTokens, outputTokens){
+  var cost = estimateCost(inputTokens, outputTokens);
+  creditUsed += cost;
+  save();
+  updateCreditBadge();
+  return cost;
+}
+
+function updateCreditBadge(){
+  var badge = document.getElementById('creditBadge');
+  var left  = document.getElementById('creditLeft');
+  if(!badge||!left) return;
+  var remaining = Math.max(0, BUDGET - creditUsed);
+  left.textContent = '$' + remaining.toFixed(3);
+  badge.style.display = 'inline-flex';
+  if(remaining < 0.5){
+    badge.style.color='var(--danger)';
+    badge.style.borderColor='rgba(232,90,90,.3)';
+    badge.style.background='rgba(232,90,90,.07)';
+  } else if(remaining < 1.5){
+    badge.style.color='#BA7517';
+  } else {
+    badge.style.color='var(--success)';
+    badge.style.borderColor='rgba(90,232,160,.25)';
+    badge.style.background='rgba(90,232,160,.07)';
+  }
 }
 
 function updateApiKeyBadge(){
@@ -381,8 +438,8 @@ function apiHeaders(){
 // ─── INIT ────────────────────────────────────────────────────────────────────
 renderAll();
 updateApiKeyBadge();
+updateCreditBadge();
 
-// Show API key modal on first visit
 if(!getApiKey()){
   setTimeout(showApiKeyModal, 600);
 }
@@ -440,7 +497,6 @@ function handleFile(file){
     topicInput.style.borderColor='';topicInput.style.background='';
   },{once:true});
 
-  // remove old listener before adding new one
   topicInput.oninput=function(){
     if(topicInput.value!==autoName){
       badge.textContent='✎ Düzenlendi';badge.style.color='var(--accent2)';
@@ -465,6 +521,11 @@ async function generateQuestions(){
   if(!topic){showToast('Lütfen konu adı girin','error');return;}
   if(!selectedFile){showToast('Lütfen bir PDF dosyası seçin','error');return;}
   if(!getApiKey()){showApiKeyModal();showToast('Önce API key girin','error');return;}
+
+  // Kalan kredi kontrolü
+  var remaining = BUDGET - creditUsed;
+  if(remaining < 0.01){showToast('Kredi tükendi! ($5 limitine ulaşıldı)','error');return;}
+
   var btn=document.getElementById('generateBtn');
   btn.disabled=true;
   btn.innerHTML='<span class="spinner"></span> Üretiliyor...';
@@ -486,11 +547,13 @@ async function runGenerate(topic,base64){
     +'Yanlityi SADECE asagidaki JSON formatinda ver, markdown veya baska hicbir sey ekleme:\n'
     +'{"sorular":[{"soru":"Soru metni?","secenekler":{"A":"...","B":"...","C":"...","D":"..."},"dogru":"A"}]}';
 
+  // ✅ OPTİMİZASYON: claude-haiku-4-5-20251001 kullanılıyor (Sonnet'ten 3x ucuz)
   var resp=await fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
     headers:apiHeaders(),
     body:JSON.stringify({
-      model:'claude-sonnet-4-20250514',max_tokens:2500,
+      model: MODEL,
+      max_tokens:2000,
       messages:[{role:'user',content:[
         {type:'document',source:{type:'base64',media_type:'application/pdf',data:base64}},
         {type:'text',text:prompt}
@@ -504,6 +567,13 @@ async function runGenerate(topic,base64){
     if(resp.status===401) msg='Geçersiz API key — ⚙ API Key butonundan kontrol et';
     throw new Error(msg);
   }
+
+  // Kredi takibi
+  if(data.usage){
+    var cost = trackCost(data.usage.input_tokens, data.usage.output_tokens);
+    showToast('Bu üretim: $'+cost.toFixed(4)+' · Kalan: $'+(BUDGET-creditUsed).toFixed(3),'info');
+  }
+
   var raw=(data.content||[]).map(function(c){return c.text||'';}).join('');
   var parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
   var newQs=parsed.sorular||[];
@@ -594,6 +664,8 @@ function renderQuestions(){
     if(q.options) Object.keys(q.options).forEach(function(k){
       opts+='<div class="q-option" onclick="selectOption(this,\''+sid+'\',\''+k+'\',\''+sc+'\')"><span class="q-opt-label">'+k+'</span><span class="q-opt-text">'+esc(q.options[k])+'</span></div>';
     });
+    // Kaynak önbellekte varsa rozet göster
+    var srcCached = q.sourceInfo ? ' <span style="font-size:9px;color:var(--success)">✓ önbellekte</span>' : '<span class="credit-warn">⚡ kredi harcar</span>';
     html+='<div class="question-card" id="qcard-'+sid+'">'
       +'<div class="question-meta"><span class="q-topic">'+esc(q.topic)+'</span><span class="q-num">#'+(filtered.length-i)+'</span><span class="q-time">'+esc(q.date)+' '+esc(q.time)+'</span></div>'
       +'<div class="question-text">'+esc(q.text)+'</div>'
@@ -602,7 +674,7 @@ function renderQuestions(){
       +'<div class="question-actions">'
       +'<button class="q-btn" onclick="copyQuestion(\''+sid+'\')">⊕ Kopyala</button>'
       +'<button class="q-btn edit" onclick="editQuestion(\''+sid+'\')">✎ Düzenle</button>'
-      +'<button class="q-btn src" id="srcbtn-'+sid+'" onclick="toggleSource(\''+sid+'\')">⊙ Kaynağı Göster</button>'
+      +'<button class="q-btn src" id="srcbtn-'+sid+'" onclick="toggleSource(\''+sid+'\')">⊙ Kaynak'+srcCached+'</button>'
       +'<button class="q-btn delete" onclick="deleteQuestion(\''+sid+'\')">✕ Sil</button>'
       +'</div></div>';
   });
@@ -725,7 +797,6 @@ function editQuestion(id){
     if(!checkedRadio){showToast('Doğru cevabı seçin','error');return;}
     var newCorrect=checkedRadio.value;
 
-    // Apply changes
     var idx=questions.findIndex(function(q){return q.id===id;});
     if(idx>-1){
       questions[idx].text=newText;
@@ -750,7 +821,6 @@ function openPDF(topic){
     var url=URL.createObjectURL(blob);
     var win=window.open(url,'_blank');
     if(!win){
-      // popup blocked — fallback: download
       var a=document.createElement('a');
       a.href=url; a.download=topic+'.pdf';
       a.style.display='none';
@@ -763,32 +833,46 @@ function openPDF(topic){
   }catch(e){showToast('PDF açılamadı: '+e.message,'error');}
 }
 
-
+// ─── KAYNAK GÖSTER ───────────────────────────────────────────────────────────
+// ✅ OPTİMİZASYON: Önbellekte yoksa kredi uyarısı göster, onay al
 async function toggleSource(id){
   var box=document.getElementById('source-'+id);
   var btn=document.getElementById('srcbtn-'+id);
   if(!box) return;
+
   if(box.style.display==='block'){
-    box.style.display='none';btn.textContent='⊙ Kaynağı Göster';btn.classList.remove('active');return;
+    box.style.display='none';
+    renderQuestions(); // butonu güncelle
+    return;
   }
-  btn.textContent='⊙ Kaynağı Gizle';btn.classList.add('active');
 
   var q=questions.find(function(q){return q.id===id;});
   if(!q) return;
 
-  // If already stored, just render (no API call)
+  // ✅ Önbellekte varsa — BEDAVA, direkt göster
   if(q.sourceInfo){
     box.style.display='block';
     renderSourceBox(box,id,q.sourceInfo,q.topic);
+    if(btn){ btn.textContent='⊙ Kaynağı Gizle'; btn.classList.add('active'); }
     return;
   }
 
+  // ✅ Önbellekte yoksa — kredi uyarısı
   var b64=topicPDFs[q.topic];
-  box.style.display='block';
+  if(!b64){showToast('Bu konunun PDF verisi bulunamadı','error');return;}
 
-  if(!b64){
-    box.innerHTML='<div class="source-error">⚠ Bu konunun PDF verisi bulunamadı.</div>';return;
-  }
+  var remaining = BUDGET - creditUsed;
+  var confirmed = confirm(
+    '⚡ Kredi Uyarısı\n\n'
+    +'Bu özellik PDF\'i tekrar API\'ye gönderir ve tahminen $0.005–0.02 kredi harcar.\n'
+    +'Kalan krediniz: $'+remaining.toFixed(3)+'\n\n'
+    +'Bir kez sorgulandıktan sonra önbelleğe alınır, tekrar kredi harcanmaz.\n\n'
+    +'Devam etmek istiyor musun?'
+  );
+  if(!confirmed) return;
+
+  box.style.display='block';
+  if(btn){ btn.textContent='⊙ Yükleniyor...'; btn.classList.add('active'); }
 
   box.innerHTML='<div class="source-loading"><span style="display:inline-block;width:10px;height:10px;border:2px solid rgba(232,180,90,.2);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite;margin-right:8px;vertical-align:middle;"></span>PDF\'de ilgili bölüm aranıyor...</div>';
 
@@ -798,10 +882,12 @@ async function toggleSource(id){
       +'SADECE JSON formatinda yanit ver:\n'
       +'{"bolum":"Bolum adi","ozet":"Ilgili icerik ozeti","konum":"PDF konumu","dogru_cevap_aciklama":"Neden dogru"}';
 
+    // ✅ OPTİMİZASYON: Haiku ile kaynak arama
     var resp=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',headers:apiHeaders(),
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',max_tokens:800,
+        model: MODEL,
+        max_tokens:600,
         messages:[{role:'user',content:[
           {type:'document',source:{type:'base64',media_type:'application/pdf',data:b64}},
           {type:'text',text:prompt}
@@ -814,16 +900,26 @@ async function toggleSource(id){
       if(resp.status===401) emsg='Geçersiz API key';
       throw new Error(emsg);
     }
+
+    // Kredi takibi
+    if(data.usage){
+      var cost = trackCost(data.usage.input_tokens, data.usage.output_tokens);
+      showToast('Kaynak sorgusu: $'+cost.toFixed(4)+' · Kalan: $'+(BUDGET-creditUsed).toFixed(3),'info');
+    }
+
     var raw=(data.content||[]).map(function(c){return c.text||'';}).join('');
     var info=JSON.parse(raw.replace(/```json|```/g,'').trim());
 
-    // Store in question object
+    // Önbelleğe al
     var idx=questions.findIndex(function(q){return q.id===id;});
     if(idx>-1){ questions[idx].sourceInfo=info; save(); }
 
     renderSourceBox(box,id,info,q.topic);
+    if(btn){ btn.textContent='⊙ Kaynağı Gizle ✓'; btn.classList.add('active'); }
+    renderQuestions();
   }catch(err){
     box.innerHTML='<div class="source-error">⚠ Kaynak bulunamadı: '+esc(err.message)+'</div>';
+    if(btn){ btn.textContent='⊙ Kaynak <span class="credit-warn">⚡ kredi harcar</span>'; btn.classList.remove('active'); }
   }
 }
 
@@ -875,7 +971,6 @@ function toggleSourceEdit(sid){
     if(isEditing){
       disp.style.display=''; inp.style.display='none';
     } else {
-      // populate input from current display text
       var cur=disp.textContent==='—'?'':disp.textContent;
       if(inp.tagName==='TEXTAREA') inp.value=cur; else inp.value=cur;
       disp.style.display='none'; inp.style.display='';
@@ -888,7 +983,7 @@ function toggleSourceEdit(sid){
 }
 
 function cancelSourceEdit(sid){
-  toggleSourceEdit(sid); // just toggle back
+  toggleSourceEdit(sid);
 }
 
 function saveSourceEdit(id){
@@ -908,13 +1003,11 @@ function saveSourceEdit(id){
   var idx=questions.findIndex(function(q){return q.id===id;});
   if(idx>-1){ questions[idx].sourceInfo=info; save(); }
 
-  // Re-render
   var box=document.getElementById('source-'+id);
   var q=questions.find(function(q){return q.id===id;});
   if(box&&q) renderSourceBox(box,id,info,q.topic);
   showToast('Kaynak bilgisi güncellendi ✓','success');
 }
-
 
 function downloadPDF(topic){
   var b64=topicPDFs[topic];
@@ -934,12 +1027,11 @@ function downloadPDF(topic){
   }catch(e){showToast('PDF indirilemedi: '+e.message,'error');}
 }
 
-
 function showToast(msg,type){
   var t=document.createElement('div');
   t.className='toast '+(type||'info');t.textContent=msg;
   document.body.appendChild(t);
-  setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},3000);
+  setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},3500);
 }
 
 function showConfirm(msg,onYes){
